@@ -1,0 +1,33 @@
+body{
+  background: rgba(200,200,200,0.1);
+}
+.form-holder{
+  background: white;
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.form-submit{
+  height: 50px;
+}
+.form-group{
+  font-weight: bold;
+}
+.form-control{
+  border-radius: 0;
+  margin-top: 5px;
+  font-weight: normal;
+}
+.form-control:focus{
+  box-shadow: none;
+  border: 1px solid rgba(0,0,0,0.85);
+  box-shadow: 0 0 6px rgba(0,0,0,0.5);
+}
+.has-success{
+  color: green;
+}
+.has-error{
+  color: red;
+}
+.form-group textarea{
+  min-height: 100px;
+}

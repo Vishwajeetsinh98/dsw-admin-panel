@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Event Form</title>
+  <!--  <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <script src="../public/js/jquery.min.js"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
+    <script src="../public/js/angular.min.js"></script>
+    <script src="../public/js/angular-script.js"></script>
+</head>
+
+<body ng-app="app" ng-controller="mainController">
+<div class='container-fluid'>
+<br><br>
+<br>
+<div class="row">
+  <div class="col-md-8 col-xs-12 col-md-push-2">
+    <div class="form-holder">
+      <br><br>
+      <form name="eventForm" method="post" action="#">
+          <div class="row">
+            <div class="col-xs-10 col-xs-push-1 col-md-10 col-md-push-1">
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.clubOrChapter.$invalid && eventForm.clubOrChapter.$dirty, 'has-error': (eventForm.clubOrChapter.$invalid || clubOrChapter=='') && eventForm.clubOrChapter.$dirty}">
+                <label for="sel1">Club/Chapter</label>
+                <select class="form-control" ng-model="clubOrChapter" name="clubOrChapter" id="sel1">
+                  <option value>--select--</option>
+                  <option value="club">Club</option>
+                  <option value="chapter">Chapter</option>
+                </select>
+              </div>
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.club.$invalid && eventForm.club.$dirty, 'has-error':  (eventForm.club.$invalid || club=='' ) && eventForm.club.$dirty}" ng-if="clubOrChapter=='club'">
+                <label for="sel2">Club Name</label>
+                <select class="form-control" name="club" ng-model="club" id="sel2">
+                  <option value>--select--</option>
+                  <option value="X">X</option>
+                  <option value="Y">Y</option>
+                </select>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.chapter.$invalid && eventForm.chapter.$dirty, 'has-error':  (eventForm.chapter.$invalid || chapter=='' ) && eventForm.chapter.$dirty}" ng-if="clubOrChapter=='chapter'">
+                <label for="sel3">Chapter Name</label>
+                <select class="form-control" ng-model="chapter" name="chapter" id="sel3">
+                  <option value>--select--</option>
+                  <option value="Z">Z</option>
+                  <option value="W">W</option>
+                </select>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.eventName.$invalid && eventForm.eventName.$dirty, 'has-error': (eventForm.eventName.$invalid || eventName=='' ) && eventForm.eventName.$dirty}">
+                Event Name
+                <input type="text" class="form-control" ng-model="eventName" name="eventName" placeholder="Name" required>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.startDate.$invalid && eventForm.startDate.$dirty, 'has-error': (eventForm.startDate.$invalid || startDate=='' ) && eventForm.startDate.$dirty}">
+                Event Start Date
+                <input type="date" class="form-control" ng-model="startDate" name="startDate" placeholder="Start Date" required>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.endDate.$invalid && eventForm.endDate.$dirty, 'has-error': (eventForm.endDate.$invalid || endDate=='' ) && eventForm.endDate.$dirty}">
+                Event End Date
+                <input type="date" class="form-control" ng-model="endDate" name="endDate" placeholder="End Date" required>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.startTime.$invalid && eventForm.startTime.$dirty, 'has-error': (eventForm.startTime.$invalid || startTime=='' ) && eventForm.startTime.$dirty}">
+                Event Start Time (24 hour format)
+                <input type="time" class="form-control" ng-model="startTime" name="startTime" placeholder="Start Time" required>
+              </div>
+
+
+              <div class="form-group">
+                Event Duration (hours)
+                <input type="number" class="form-control" min="1" name="duration" placeholder="Total hours needed for the event" required>
+              </div>
+              <div class="form-group">
+                Event Description
+                <textarea name="eventDescription" class="form-control" placeholder="Short Description about the Event" required></textarea>
+              </div>
+              <div class="form-group">
+                Expected Participants
+                <input type="number" class="form-control" min="1" name="eventParticipants" placeholder="Enter the Expected Participation Number" required>
+              </div>
+              <div class="form-group">
+                <label for="sel4">Venue Requirement</label>
+                <select class="form-control" name="venueRequirement" id="sel4">
+                  <option value>--select--</option>
+                  <option value="club">Z</option>
+                  <option value="chapter">W</option>
+                </select>
+              </div>
+              <div class="form-group">
+                Guest Details (If Applicable)
+                <input type="text" class="form-control" name="guestDetails" placeholder="Guest Details">
+              </div>
+              <div class="form-group">
+                Budget (If Applicable)
+                <input type="text" class="form-control" name="budget" placeholder="Budget">
+              </div>
+              <div class="form-group">
+                Sponsors (If Applicable)
+                <input type="text"class="form-control" name="sponsors" placeholder="Sponsors">
+              </div>
+              <br><br>
+              <br>
+              <div class="form-group">
+                Name
+                <input type="text" class="form-control" name="coordName" placeholder="Name" required>
+              </div>
+              <div class="form-group">
+                Registration Number
+                <input type="text" class="form-control" name="coordRegNum" placeholder="Registration Number" required>
+              </div>
+              <div class="form-group">
+                <label for="sel5">School</label>
+                <select class="form-control" name="coordSchool" id="sel5">
+                  <option value>--select--</option>
+                  <option value="club">Z</option>
+                  <option value="chapter">W</option>
+                </select>
+              </div>
+              <div class="form-group">
+                Mobile Number
+                <input type="number" class="form-control" min="7000000000" max="9999999999" name="coordPhone" placeholder="Don't include +91 (or) 0, only 10 digits needed" required>
+              </div>
+              <div class="form-group">
+                  Email
+                <input type="email" class="form-control" name="coordEmail" placeholder="Email Id" required>
+              </div>
+              <br><br>
+              <br><br>
+              <div class="form-group">
+                Name
+                <input type="text" class="form-control" name="facName" placeholder="Name" required>
+              </div>
+              <div class="form-group">
+                Employee ID
+                <input type="text" class="form-control" name="facEmpId" placeholder="Registration Number" required>
+              </div>
+              <div class="form-group">
+                <label for="sel5">School</label>
+                <select class="form-control" name="facSchool" id="sel5">
+                  <option value>--select--</option>
+                  <option value="club">Z</option>
+                  <option value="chapter">W</option>
+                </select>
+              </div>
+              <div class="form-group">
+                Mobile Number
+                <input type="number" class="form-control" min="7000000000" max="9999999999" name="facPhone" placeholder="Don't include +91 (or) 0, only 10 digits needed" required>
+              </div>
+              <div class="form-group">
+                  Email
+                <input type="email" class="form-control" name="facEmail" placeholder="Email Id" required>
+              </div>
+
+              <br><br>
+              <br><br>
+
+              <div class="form-group">
+                Campus Engineer Office Request
+                <input type="text" class="form-control" name="ceoRequest" placeholder="Table, Chair etc">
+              </div>
+              <div class="form-group">
+                PRO Office Request
+                <input type="text" class="form-control" name="proRequest" placeholder="Audio, Video etc">
+              </div>
+              <div class="form-group">
+                Other Request
+                <input type="text" class="form-control" name="other" placeholder="Any other request">
+              </div>
+              <p align="center">
+                <button type="submit">Submit</button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <br>
+  <br>
+</div>
+</div>
+</body>
+</html>
