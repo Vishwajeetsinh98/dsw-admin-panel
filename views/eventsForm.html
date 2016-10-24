@@ -81,108 +81,145 @@
               </div>
 
 
-              <div class="form-group">
+              <div class="form-group" ng-class="{'has-success': !eventForm.duration.$invalid && eventForm.duration.$dirty, 'has-error': (eventForm.duration.$invalid || duration=='' ) && eventForm.duration.$dirty}">
                 Event Duration (hours)
-                <input type="number" class="form-control" min="1" name="duration" placeholder="Total hours needed for the event" required>
+                <input type="number" class="form-control" min="1" ng-model="duration" name="duration" placeholder="Total hours needed for the event" required>
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.eventDescription.$invalid && eventForm.eventDescription.$dirty, 'has-error': (eventForm.eventDescription.$invalid || eventDescription=='' ) && eventForm.eventDescription.$dirty}">
                 Event Description
-                <textarea name="eventDescription" class="form-control" placeholder="Short Description about the Event" required></textarea>
+                <textarea name="eventDescription" class="form-control" ng-model="eventDescription" placeholder="Short Description about the Event" required></textarea>
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.eventParticipants.$invalid && eventForm.eventParticipants.$dirty, 'has-error': (eventForm.eventParticipants.$invalid || eventParticipants=='' ) && eventForm.eventParticipants.$dirty}">
                 Expected Participants
-                <input type="number" class="form-control" min="1" name="eventParticipants" placeholder="Enter the Expected Participation Number" required>
+                <input type="number" class="form-control" min="1" ng-model="eventParticipants" name="eventParticipants" placeholder="Enter the Expected Participation Number" required>
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.venueRequirement.$invalid && eventForm.venueRequirement.$dirty, 'has-error': (eventForm.venueRequirement.$invalid || venueRequirement=='' ) && eventForm.venueRequirement.$dirty}">
                 <label for="sel4">Venue Requirement</label>
-                <select class="form-control" name="venueRequirement" id="sel4">
+                <select class="form-control" ng-model="venueRequirement" name="venueRequirement" id="sel4">
                   <option value>--select--</option>
                   <option value="club">Z</option>
                   <option value="chapter">W</option>
                 </select>
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.guestDetails.$invalid && eventForm.guestDetails.$dirty, 'has-error': (eventForm.guestDetails.$invalid) && eventForm.guestDetails.$dirty}">
                 Guest Details (If Applicable)
-                <input type="text" class="form-control" name="guestDetails" placeholder="Guest Details">
+                <input type="text" class="form-control" ng-model="guestDetails" name="guestDetails" placeholder="Guest Details">
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.budget.$invalid && eventForm.budget.$dirty, 'has-error': (eventForm.budget.$invalid ) && eventForm.budget.$dirty}">
                 Budget (If Applicable)
-                <input type="text" class="form-control" name="budget" placeholder="Budget">
+                <input type="text" class="form-control" ng-model="budget" name="budget" placeholder="Budget">
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.sponsors.$invalid && eventForm.sponsors.$dirty, 'has-error': (eventForm.sponsors.$invalid) && eventForm.sponsors.$dirty}">
                 Sponsors (If Applicable)
-                <input type="text"class="form-control" name="sponsors" placeholder="Sponsors">
+                <input type="text"class="form-control" ng-model="sponsors" name="sponsors" placeholder="Sponsors">
               </div>
               <br><br>
               <br>
-              <div class="form-group">
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.coordName.$invalid && eventForm.coordName.$dirty, 'has-error': (eventForm.coordName.$invalid || coordName=='' ) && eventForm.coordName.$dirty}">
                 Name
-                <input type="text" class="form-control" name="coordName" placeholder="Name" required>
+                <input type="text" class="form-control" ng-model="coordName" name="coordName" placeholder="Name" required>
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.coordRegNum.$invalid && eventForm.coordRegNum.$dirty, 'has-error': (eventForm.coordRegNum.$invalid || coordRegNum=='' ) && eventForm.coordRegNum.$dirty}">
                 Registration Number
-                <input type="text" class="form-control" name="coordRegNum" placeholder="Registration Number" required>
+                <input type="text" class="form-control" ng-model="coordRegNum" name="coordRegNum" ng-pattern="regRegEx" placeholder="Registration Number" required>
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.coordSchool.$invalid && eventForm.coordSchool.$dirty, 'has-error': (eventForm.coordSchool.$invalid || coordSchool=='' ) && eventForm.coordSchool.$dirty}">
                 <label for="sel5">School</label>
-                <select class="form-control" name="coordSchool" id="sel5">
+                <select class="form-control" ng-model="coordSchool" name="coordSchool" id="sel5">
                   <option value>--select--</option>
                   <option value="club">Z</option>
                   <option value="chapter">W</option>
                 </select>
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.coordPhone.$invalid && eventForm.coordPhone.$dirty, 'has-error': (eventForm.coordPhone.$invalid || coordPhone=='' ) && eventForm.coordPhone.$dirty}">
                 Mobile Number
-                <input type="number" class="form-control" min="7000000000" max="9999999999" name="coordPhone" placeholder="Don't include +91 (or) 0, only 10 digits needed" required>
+                <input type="number" class="form-control" min="1000000000" max="9999999999" name="coordPhone" ng-model="coordPhone" placeholder="Don't include +91 (or) 0, only 10 digits needed" required>
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.coordEmail.$invalid && eventForm.coordEmail.$dirty, 'has-error': (eventForm.coordEmail.$invalid || coordEmail=='' ) && eventForm.coordEmail.$dirty}">
                   Email
-                <input type="email" class="form-control" name="coordEmail" placeholder="Email Id" required>
+                <input type="email" class="form-control" ng-model="coordEmail" name="coordEmail" placeholder="Email Id" required>
               </div>
+
+
               <br><br>
               <br><br>
-              <div class="form-group">
+              <div class="form-group" ng-class="{'has-success': !eventForm.facName.$invalid && eventForm.facName.$dirty, 'has-error': (eventForm.facName.$invalid || facName=='' ) && eventForm.facName.$dirty}">
                 Name
-                <input type="text" class="form-control" name="facName" placeholder="Name" required>
+                <input type="text" class="form-control" ng-model="facName" name="facName" placeholder="Name" required>
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.facEmpId.$invalid && eventForm.facEmpId.$dirty, 'has-error': (eventForm.facEmpId.$invalid || facEmpId=='' ) && eventForm.facEmpId.$dirty}">
                 Employee ID
-                <input type="text" class="form-control" name="facEmpId" placeholder="Registration Number" required>
+                <input type="number" class="form-control" ng-model="facEmpId" name="facEmpId" placeholder="Registration Number" required>
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.facSchool.$invalid && eventForm.facSchool.$dirty, 'has-error': (eventForm.facSchool.$invalid || facSchool=='' ) && eventForm.facSchool.$dirty}">
                 <label for="sel5">School</label>
-                <select class="form-control" name="facSchool" id="sel5">
+                <select class="form-control" ng-model="facSchool" name="facSchool" id="sel5">
                   <option value>--select--</option>
                   <option value="club">Z</option>
                   <option value="chapter">W</option>
                 </select>
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.facPhone.$invalid && eventForm.facPhone.$dirty, 'has-error': (eventForm.facPhone.$invalid || facPhone=='' ) && eventForm.facPhone.$dirty}">
                 Mobile Number
-                <input type="number" class="form-control" min="7000000000" max="9999999999" name="facPhone" placeholder="Don't include +91 (or) 0, only 10 digits needed" required>
+                <input type="number" class="form-control" min="1000000000" max="9999999999" ng-model="facPhone" name="facPhone" placeholder="Don't include +91 (or) 0, only 10 digits needed" required>
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.facEmail.$invalid && eventForm.facEmail.$dirty, 'has-error': (eventForm.facEmail.$invalid || facEmail=='' ) && eventForm.facEmail.$dirty}">
                   Email
-                <input type="email" class="form-control" name="facEmail" placeholder="Email Id" required>
+                <input type="email" class="form-control" ng-model="facEmail" name="facEmail" placeholder="Email Id" required>
               </div>
 
               <br><br>
               <br><br>
 
-              <div class="form-group">
+              <div class="form-group" ng-class="{'has-success': !eventForm.ceoRequest.$invalid && eventForm.ceoRequest.$dirty, 'has-error': (eventForm.ceoRequest.$invalid) && eventForm.ceoRequest.$dirty}">
                 Campus Engineer Office Request
-                <input type="text" class="form-control" name="ceoRequest" placeholder="Table, Chair etc">
+                <input type="text" class="form-control" ng-model="ceoRequest" name="ceoRequest" placeholder="Table, Chair etc">
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.proRequest.$invalid && eventForm.proRequest.$dirty, 'has-error': (eventForm.proRequest.$invalid) && eventForm.proRequest.$dirty}">
                 PRO Office Request
-                <input type="text" class="form-control" name="proRequest" placeholder="Audio, Video etc">
+                <input type="text" class="form-control" ng-model="proRequest" name="proRequest" placeholder="Audio, Video etc">
               </div>
-              <div class="form-group">
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.other.$invalid && eventForm.other.$dirty, 'has-error': (eventForm.other.$invalid) && eventForm.other.$dirty}">
                 Other Request
-                <input type="text" class="form-control" name="other" placeholder="Any other request">
+                <input type="text" class="form-control" ng-model="other" name="other" placeholder="Any other request">
               </div>
+
+
               <p align="center">
-                <button type="submit">Submit</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="eventForm.$invalid">Submit</button>
               </p>
             </div>
           </div>
