@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Event List</title>
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <script src="../public/js/jquery.min.js"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
+    <script src="../public/js/angular.min.js"></script>
+    <script src="../public/js/angular-script.js"></script>
+</head>
+<style>
+    body{
+        background:white;
+    }
+</style>
+<body ng-app="app" ng-controller="listController">
+<div class="container-fluid">
+    <div class="row">
+        <h1 align="center">Admin Panel</h1>
+        <h4 align="center">List of Events</h4>
+        <br><hr><br>
+        <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8 col-xs-10 col-xs-push-1 col-sm-push-2">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="eventSearch" name="eventSearch" placeholder="Search for Events">
+                </div>
+                <br>
+                <br>
+                <div class="container-fluid">
+    <div class="row">
+        <table class="table table-bordered event-list-table">
+        <thead>
+            <tr>
+            <th>#</th>
+            <th>Event Name</th>
+            <th>Chapter/Club Name</th>
+            <th>Event Date</th>
+            <th>Reviewed Status</th>
+            <th>Final Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <th scope="row">1</th>
+            <td><a href="#">Java.io</a></td>
+            <td>IEEE Computer Society</td>
+            <td>26/10/1997</td>
+            <td>Reviewed By:
+                <a href="#">
+                <ul>
+                    <li>
+                        Ankur
+                    </li>
+                </ul>
+                </a>
+            </td>
+            <td ng-class="{'pass':true, 'reject':false,'pending':false}">
+                pass
+            </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

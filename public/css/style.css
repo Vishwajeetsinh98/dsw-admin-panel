@@ -8,6 +8,7 @@ body{
   background: white;
   border-top: 0;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 5px;
 }
 .form-submit{
   height: 50px;
@@ -40,10 +41,25 @@ body{
   padding-bottom:2%;
   font-size: 200%;
   line-height: 80%;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
 }
 .form-head span{
   font-size: 50%;
   color: rgba(255,255,255,0.75);
+}
+.event-list-table{
+  border: 1px solid rgba(0,0,0,0.4);
+  border-radius: 5px !important;
+}
+.pass{
+  background:lightgreen;
+}
+.reject{
+  background: red;
+}
+.pending{
+  background: yellow;
 }
 @media(max-width:600px){
   .form-head{
