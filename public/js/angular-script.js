@@ -6,5 +6,9 @@ app.controller("mainController", function($scope){
 });
 
 app.controller("listController", function($scope){
-  
+
+});
+
+app.controller("eventController", function($scope){
+
 });

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Event Description</title>
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <script src="../public/js/jquery.min.js"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
+    <script src="../public/js/angular.min.js"></script>
+    <script src="../public/js/angular-script.js"></script>
+</head>
+<style>
+    body{
+        background:white;
+    }
+</style>
+<body ng-app="app" ng-controller="eventController">
+<div class="container-fluid">
+    <div class="row">
+        <h1 align="center">Admin Panel</h1>
+        <h4 align="center">Event Description</h4>
+        <h4 class="logout"><a href="#">Logout</a></h4>
+        <br><hr><br>
+        <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8 col-xs-10 col-xs-push-1 col-sm-push-2">
+                <div class="container-fluid">
+                  <div class="row">
+                      <table class="table table-bordered table-striped event-list-table">
+                      <tbody>
+                          <tr>
+                          <td>Event Name</td>
+                          <td>java.io</td>
+                          </tr>
+                          <tr>
+                          <td>Club/Chapter</td>
+                          <td>Chapter</td>
+                          </tr>
+                          <tr>
+                          <td>Club/Chapter Name</td>
+                          <td>IEEECS</td>
+                          </tr>
+                          <tr>
+                          <td>Start Date -- End Date</td>
+                          <td>24th July 2016 -- 27th July 2016</td>
+                          </tr>
+                          <tr>
+                          <td>Start Time</td>
+                          <td>5pm</td>
+                          </tr>
+                          <tr>
+                          <td>Duration</td>
+                          <td>24 hours</td>
+                          </tr>
+                          <tr>
+                          <td>Description</td>
+                          <td>Lorem Ipsum Ldshflajdsflkadslfjadklsfjlkjadshfkjasdhlkfhdaskjhfkjashdfkljhasdkjfh</td>
+                          </tr>
+                          <tr>
+                          <td>Expected Number of Participants</td>
+                          <td>500</td>
+                          </tr>
+                          <tr>
+                          <td>Venue Requirements</td>
+                          <td>SJT Gallery</td>
+                          </tr>
+                          <tr>
+                          <td>Guest Details</td>
+                          <td></td>
+                          </tr>
+                          <tr>
+                          <td>Sponsors</td>
+                          <td></td>
+                          </tr>
+                          <tr>
+                          <td>Budget</td>
+                          <td>24</td>
+                          </tr>
+                          <tr>
+                          <td>Student Co-ordinator Details</td>
+                          <td class="multivalue">
+                            <p>John Doe</p>
+                            <p>16BCE0001</p>
+                            <p>SCOPE</p>
+                            <p>9029192901</p>
+                            <p>xyz@xyz.com</p>
+                          </td>
+                          </tr>
+                          <tr>
+                          <td>Faculty Co-ordinator Details</td>
+                          <td class="multivalue">
+                            <p>John Doe</p>
+                            <p>123123</p>
+                            <p>SCOPE</p>
+                            <p>9029192901</p>
+                            <p>xyz@vit.ac.in</p>
+                          </td>
+                          </tr>
+                          <tr>
+                          <td>Campus Engineer Office Request</td>
+                          <td>Table, Chair</td>
+                          </tr>
+                          <tr>
+                          <td>PRO Office Request</td>
+                          <td>Audio, Video</td>
+                          </tr>
+                          <tr>
+                          <td>Other Request</td>
+                          <td>Nope</td>
+                          </tr>
+                      </tbody>
+                      </table>
+                  </div>
+              </div>
+              <hr>
+              <div class="admin-rating">
+                <span>Admin Review</span>
+                <br>
+                <form action="#" method="POST">
+                  Rating:
+                  <div class="radio">
+                    <label><input type="radio" name="rating" required>Pass</label>
+                  </div>
+                  <div class="radio">
+                    <label><input type="radio" name="rating" required>Reject</label>
+                  </div>
+                  <button class="submit btn btn-primary" type="submit">Submit</button>
+                </form>
+              </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+</body>
+</html>
