@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Event Description</title>
-    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../public/css/style.css">
-    <script src="../public/js/jquery.min.js"></script>
-    <script src="../public/js/bootstrap.min.js"></script>
-    <script src="../public/js/angular.min.js"></script>
-    <script src="../public/js/angular-script.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/angular-script.js"></script>
 </head>
 <style>
     body{
@@ -34,83 +34,79 @@
                       <tbody>
                           <tr>
                           <td>Event Name</td>
-                          <td>java.io</td>
+                          <td><%=event.eventName%></td>
                           </tr>
                           <tr>
                           <td>Club/Chapter</td>
-                          <td>Chapter</td>
+                          <td><%=event.conductingBodyType%></td>
                           </tr>
                           <tr>
                           <td>Club/Chapter Name</td>
-                          <td>IEEECS</td>
+                          <td><%=event.clubOrChapter%></td>
                           </tr>
                           <tr>
                           <td>Start Date -- End Date</td>
-                          <td>24th July 2016 -- 27th July 2016</td>
+                          <td><%=event.startDate%> -- <%=event.endDate%></td>
                           </tr>
                           <tr>
                           <td>Start Time</td>
-                          <td>5pm</td>
+                          <td><%=event.startTime%></td>
                           </tr>
                           <tr>
                           <td>Duration</td>
-                          <td>24 hours</td>
+                          <td><%=event.duration%> Hours</td>
                           </tr>
                           <tr>
                           <td>Description</td>
-                          <td>Lorem Ipsum Ldshflajdsflkadslfjadklsfjlkjadshfkjasdhlkfhdaskjhfkjashdfkljhasdkjfh</td>
+                          <td><%=event.eventDescription%></td>
                           </tr>
                           <tr>
                           <td>Expected Number of Participants</td>
-                          <td>500</td>
+                          <td><%=event.eventParticipants%></td>
                           </tr>
                           <tr>
                           <td>Venue Requirements</td>
-                          <td>SJT Gallery</td>
+                          <td><%=event.venueRequirement%></td>
                           </tr>
                           <tr>
                           <td>Guest Details</td>
-                          <td></td>
+                          <td><%=event.guest%></td>
                           </tr>
                           <tr>
                           <td>Sponsors</td>
-                          <td></td>
+                          <td><%=event.sponsors%></td>
                           </tr>
                           <tr>
                           <td>Budget</td>
-                          <td>24</td>
+                          <td><%=event.budget%></td>
                           </tr>
                           <tr>
                           <td>Student Co-ordinator Details</td>
                           <td class="multivalue">
-                            <p>John Doe</p>
-                            <p>16BCE0001</p>
-                            <p>SCOPE</p>
-                            <p>9029192901</p>
-                            <p>xyz@xyz.com</p>
+                            <%for(var i in JSON.parse(JSON.stringify(event.studentCoordinator))){%>
+                                <p><%=event.studentCoordinator[i]%></p>
+                            <%}%>
                           </td>
                           </tr>
                           <tr>
                           <td>Faculty Co-ordinator Details</td>
                           <td class="multivalue">
-                            <p>John Doe</p>
-                            <p>123123</p>
-                            <p>SCOPE</p>
-                            <p>9029192901</p>
-                            <p>xyz@vit.ac.in</p>
+                            <%for(var i in JSON.parse(JSON.stringify(event.facultyCoordinator))){%>
+                                <p><%=event.facultyCoordinator[i]%></p>
+                            <%}%>
                           </td>
                           </tr>
                           <tr>
                           <td>Campus Engineer Office Request</td>
-                          <td>Table, Chair</td>
+                          <td><%=event.ceoRequest%></td>
                           </tr>
                           <tr>
                           <td>PRO Office Request</td>
-                          <td>Audio, Video</td>
+                          <td><%=event.proRequest%></td>
                           </tr>
                           <tr>
                           <td>Other Request</td>
-                          <td>Nope</td>
+                          <td><%=event.other%></td>
                           </tr>
                       </tbody>
                       </table>

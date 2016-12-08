@@ -10,9 +10,21 @@ router.get('/', function(req, res, next){
     if(err){
       next(util.sendError(500, 'Cant Get Events'));
     } else{
+      res.render('eventsList', {data: events});
       res.json({data: events});
     }
   });
 });
+
+router.get('/:eventId', function(req, res, next){
+  Event.findById(req.params.eventId)
+  .exec(function(err, event){
+    if(err){
+      console.log(err);
+      next(util.sendError(500, 'Cant Get Event'));
+    }
+    res.render('event', {event: event});
+  })
+})
 
 module.exports = router;
