@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Event Form</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/angular-script.js"></script>
+</head>
+
+<body ng-app="app" ng-controller="mainController">
+<div class='container-fluid'>
+<br><br>
+<br>
+<div class="row">
+  <div class="col-md-8 col-xs-12 col-md-push-2">
+    <div class="form-holder">
+      <form name="eventForm" method="post" action="#">
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <div class="form-break form-head">
+                EVENT REQUEST FORM<br>
+                <span>Office of the Student's Welfare</span>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-xs-10 col-xs-push-1 col-md-10 col-md-push-1">
+              <div class="form-group" ng-class="{'has-success': !eventForm.clubOrChapter.$invalid && eventForm.clubOrChapter.$dirty, 'has-error': (eventForm.clubOrChapter.$invalid || clubOrChapter=='') && eventForm.clubOrChapter.$dirty}">
+                <label for="sel1">Club/Chapter</label>
+                <select class="form-control" ng-model="clubOrChapter" name="clubOrChapter" id="sel1">
+                  <option value>--select--</option>
+                  <option value="club">Club</option>
+                  <option value="chapter">Chapter</option>
+                </select>
+              </div>
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.club.$invalid && eventForm.club.$dirty, 'has-error':  (eventForm.club.$invalid || club=='' ) && eventForm.club.$dirty}" ng-if="clubOrChapter=='club'">
+                <label for="sel2">Club Name</label>
+                <select class="form-control" name="club" ng-model="club" id="sel2">
+                  <option value>--select--</option>
+                  <option value="Youth Red Cross Association">Youth Red Cross Association</option>
+                  <option value="Debate Society">Debate Society</option>
+                  <option value="Dance club">Dance club</option>
+                  <option value="Environment & Energy Protection Club">Environment & Energy Protection Club
+                  </option>
+                  <option value="Music Club">Music Club</option>
+                  <option value="Health Club">Health Club</option>
+                  <option value="Dramatics club">Dramatics club</option>
+                  <option value="RoboVITics">RoboVITics</option>
+                  <option value="National Service Scheme">National Service Scheme</option>
+                  <option value="Entrepreneurs cell Club">Entrepreneurs cell Club</option>
+                  <option value="Quiz Club">Quiz Club</option>
+                  <option value="The Hindu Education plus Club">The Hindu Education plus Club</option>
+                  <option value="VIT  Animation Club">VIT Animation Club</option>
+                  <option value="Trekking Club">Trekking Club</option>
+                  <option value="Creativity club">Creativity club</option>
+                  <option value="VIT Film Society">VIT Film Society</option>
+                  <option value="Photographic Club">Photographic Club</option>
+                  <option value="Fine Arts Club">Fine Arts Club</option>
+                  <option value="Students’ Association of Bio-Engineering Science and Technology">Students’
+                      Association of Bio-Engineering Science and Technology
+                  </option>
+                  <option value="Technology and Gaming Club">Technology and Gaming Club</option>
+                  <option value="VIT Spartans">VIT Spartans</option>
+                  <option value="FEP - SI">FEP - SI</option>
+                  <option value="Kalvi we nurture tomorrow">Kalvi we nurture tomorrow</option>
+                  <option value="Juvenile Care">Juvenile Care</option>
+                  <option value="Uddeshya">Uddeshya</option>
+                  <option value="Cool the World">Cool the World</option>
+                  <option value="Make A Difference">Make A Difference</option>
+                  <option value="Tamil Literary Association">Tamil Literary Association</option>
+                  <option value="English Literary Association">English Literary Association</option>
+                  <option value="Telugu Literary Association (Sahiti)">Telugu Literary Association (Sahiti)
+                  </option>
+                  <option value="Hindi Literary Association">Hindi Literary Association</option>
+                  <option value="Kannada Kasthuri (KLA)">Kannada Kasthuri (KLA)</option>
+                  <option value="Year Book">Year Book</option>
+                  <option value="TEDxVIT">TEDxVIT</option>
+                  <option value="The Electronics Club">The Electronics Club</option>
+                  <option value="Centre for Social Entrepreneurship Development">Centre for Social
+                      Entrepreneurship Development
+                  </option>
+                  <option value="VIT Culinary Club">VIT Culinary Club</option>
+                  <option value="Ayuda">Ayuda</option>
+                  <option value="Rotaract Club">Rotaract Club</option>
+                  <option value="Toastmasters International Chapter">Toastmasters International Chapter</option>
+                  <option value="Anokha">Anokha</option>
+                  <option value="Becoming I Foundation">Becoming I Foundation</option>
+                  <option value="Innovator's Quest">Innovator's Quest</option>
+                  <option value="Nature Lover’s Club">Nature Lover’s Club</option>
+                  <option value="VIT Community Radio">VIT Community Radio</option>
+                  <option value="Deccan Chronicle Club">Deccan Chronicle Club</option>
+                  <option value="Fifth Pillar">Fifth Pillar</option>
+                  <option value="International Association of Students in Economic and Commercial Sciences">
+                      International Association of Students in Economic and Commercial Sciences
+                  </option>
+                  <option value="Lions Club of Vellore Galaxy">Lions Club of Vellore Galaxy</option>
+                  <option value="Mozilla Firefox">Mozilla Firefox</option>
+                  <option value="iOS Developer Community by Apple University Program">iOS Developer Community by
+                      Apple University Program
+                  </option>
+                </select>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.chapter.$invalid && eventForm.chapter.$dirty, 'has-error':  (eventForm.chapter.$invalid || chapter=='' ) && eventForm.chapter.$dirty}" ng-if="clubOrChapter=='chapter'">
+                <label for="sel3">Chapter Name</label>
+                <select class="form-control" ng-model="chapter" name="chapter" id="sel3">
+                  <option value>--select--</option>
+                  <option value="Society of Automotive Engineers India-VIT">Society of Automotive Engineers
+                      India-VIT
+                  </option>
+                  <option value="Students for the Exploration and Development of Space-VIT">Students for the
+                      Exploration and Development of Space-VIT
+                  </option>
+                  <option value="International Society of Automation">International Society of Automation</option>
+                  <option value="The Instrument Society of India Students' Chapter">The Instrument Society of
+                      India Students' Chapter
+                  </option>
+                  <option value="Indian Society for Technical Education Students Chapter">Indian Society for
+                      Technical Education Students Chapter
+                  </option>
+                  <option value="IETE Students' Chapter">IETE Students' Chapter</option>
+                  <option value="Association for Computing Machinery">Association for Computing Machinery</option>
+                  <option value="Computer Society of India">Computer Society of India</option>
+                  <option value="Google Developers Group Club">Google Developers Group Club</option>
+                  <option value="Institution Electrical & Electronics Engineering Students' Chapter">Institution
+                      Electrical & Electronics Engineering Students' Chapter
+                  </option>
+                  <option value="IEEE Women in Engineering">IEEE Women in Engineering</option>
+                  <option value="American Society of Civil Engineers">American Society of Civil Engineers</option>
+                  <option value="CompBio  Discussion Group-India">CompBio Discussion Group-India</option>
+                  <option value="VIT Materials Advantage">VIT Materials Advantage</option>
+                  <option value="American Society of Mechanical Engineers">American Society of Mechanical
+                      Engineers
+                  </option>
+                  <option value="Engineering in Medicine & biology Society">Engineering in Medicine & biology
+                      Society
+                  </option>
+                  <option value="IEEE Professional Communication Society">IEEE Professional Communication
+                      Society
+                  </option>
+                  <option value="The Institution of Engineering and Technology (F)">The Institution of Engineering
+                      and Technology (F)
+                  </option>
+                  <option value="IEEE Computer Society">IEEE Computer Society</option>
+                  <option value="Institution of Engineers India Students' Chapter">Institution of Engineers India
+                      Students' Chapter
+                  </option>
+                  <option value="IEEE - Electron Devices Society">IEEE - Electron Devices Society</option>
+                  <option value="IEEE Power and Energy Society">IEEE Power and Energy Society</option>
+                  <option value="Indian Institute of Chemical Engineers">Indian Institute of Chemical Engineers
+                  </option>
+                  <option value="Society of  Manufacturing Engineers">Society of Manufacturing Engineers</option>
+                  <option value="Oikos International- Vellore Chapter">Oikos International- Vellore Chapter
+                  </option>
+                  <option value="IEEE-Robotics & Automation Society">IEEE-Robotics & Automation Society</option>
+                  <option value="American Institute of Chemical Engineers">American Institute of Chemical
+                      Engineers
+                  </option>
+                  <option value="Optical Society of America">Optical Society of America</option>
+                  <option value="IEEE Nuclear and Plasma Sciences and Society VIT Student Chapter">IEEE Nuclear
+                      and Plasma Sciences and Society VIT Student Chapter
+                  </option>
+                  <option value="CODECHEF">CODECHEF</option>
+                  <option value="Association of Energy Engineers">Association of Energy Engineers</option>
+                  <option value="IEEE Signal Processing Society">IEEE Signal Processing Society</option>
+                  <option value="IEEE-Microwave Theory and Techniques Society">IEEE-Microwave Theory and
+                      Techniques Society
+                  </option>
+                </select>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.eventName.$invalid && eventForm.eventName.$dirty, 'has-error': (eventForm.eventName.$invalid || eventName=='' ) && eventForm.eventName.$dirty}">
+                Event Name
+                <input type="text" class="form-control" ng-model="eventName" name="eventName" placeholder="Name" required>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.startDate.$invalid && eventForm.startDate.$dirty, 'has-error': (eventForm.startDate.$invalid || startDate=='' ) && eventForm.startDate.$dirty}">
+                Event Start Date
+                <input type="date" class="form-control" ng-model="startDate" name="startDate" placeholder="Start Date" required>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.endDate.$invalid && eventForm.endDate.$dirty, 'has-error': (eventForm.endDate.$invalid || endDate=='' ) && eventForm.endDate.$dirty}">
+                Event End Date
+                <input type="date" class="form-control" ng-model="endDate" name="endDate" placeholder="End Date" required>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.startTime.$invalid && eventForm.startTime.$dirty, 'has-error': (eventForm.startTime.$invalid || startTime=='' ) && eventForm.startTime.$dirty}">
+                Event Start Time (24 hour format)
+                <input type="time" class="form-control" ng-model="startTime" name="startTime" placeholder="Start Time" required>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.duration.$invalid && eventForm.duration.$dirty, 'has-error': (eventForm.duration.$invalid || duration=='' ) && eventForm.duration.$dirty}">
+                Event Duration (hours)
+                <input type="number" class="form-control" min="1" ng-model="duration" name="duration" placeholder="Total hours needed for the event" required>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.eventDescription.$invalid && eventForm.eventDescription.$dirty, 'has-error': (eventForm.eventDescription.$invalid || eventDescription=='' ) && eventForm.eventDescription.$dirty}">
+                Event Description
+                <textarea name="eventDescription" class="form-control" ng-model="eventDescription" placeholder="Short Description about the Event" required></textarea>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.eventParticipants.$invalid && eventForm.eventParticipants.$dirty, 'has-error': (eventForm.eventParticipants.$invalid || eventParticipants=='' ) && eventForm.eventParticipants.$dirty}">
+                Expected Participants
+                <input type="number" class="form-control" min="1" ng-model="eventParticipants" name="eventParticipants" placeholder="Enter the Expected Participation Number" required>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.venueRequirement.$invalid && eventForm.venueRequirement.$dirty, 'has-error': (eventForm.venueRequirement.$invalid || venueRequirement=='' ) && eventForm.venueRequirement.$dirty}">
+                <label for="sel4">Venue Requirement</label>
+                <select class="form-control" ng-model="venueRequirement" name="venueRequirement" id="sel4">
+                  <option value>--select--</option>
+                  <option value="Anna Auditorium">Anna Auditorium</option>
+                  <option value="Channa Reddy Auditorium">Channa Reddy Auditorium</option>
+                  <option value="Shakespeare Gallery / TT Gallery - I">Shakespeare Gallery / TT Gallery - I</option>
+                  <option value="VOC Gallery / TT Gallery - II">VOC Gallery / TT Gallery - II</option>
+                  <option value="Dr. Ambedkar Auditorium">Dr. Ambedkar Auditorium</option>
+                  <option value="Kamaraj Auditorium">Kamaraj Auditorium</option>
+                  <option value="Rajaji Hall">Rajaji Hall</option>
+                  <option value="Homi Bhabha Gallery / SJT -4th floor">Homi Bhabha Gallery / SJT -4th floor</option>
+                  <option value="Sarojini Naidu Gallery / SJT-6th floor">Sarojini Naidu Gallery / SJT-6th floor</option>
+                  <option value="Bhagat Singh Gallery /SJT 8th Floor – Non A/C">Bhagat Singh Gallery /SJT 8th Floor – Non A/C</option>
+                  <option value="CS Hall">CS Hall</option>
+                  <option value="Smart Class Room-TT<">Smart Class Room-TT<</option>
+                  <option value="Smart Class Room-SJT">Smart Class Room-SJT</option>
+                  <option value="Smart Class Room-SMV">Smart Class Room-SMV</option>
+                  <option value="Smart Class Room-CDMM">Smart Class Room-CDMM</option>
+                  <option value="Smart Class Room-MGR<">Smart Class Room-MGR<</option>
+                  <option value="ClassRoom-TT">ClassRoom-TT</option>
+                  <option value="ClassRoom-SJT">ClassRoom-SJT</option>
+                  <option value="ClassRoom-SMV<">ClassRoom-SMV</option>
+                  <option value="ClassRoom-CDMM">ClassRoom-CDMM</option>
+                  <option value="ClassRoom-MGR">ClassRoom-MGR</option>
+                  <option value="BasketBall-MB">BasketBall-MB</option>
+                  <option value="BasketBall-TT">BasketBall-TT</option>
+                  <option value="Foodys - SMV<">Foodys - SMV</option>
+                  <option value="Foodys - SJT-I">Foodys - SJT-I</option>
+                  <option value="Foodys - SJT-II">Foodys - SJT-II</option>
+                  <option value="WoodStock<">WoodStock</option>
+                  <option value="Greenos">Greenos</option>
+                  <option value="Outside Visit">Outside Visit</option>
+                  <option value="Registration Desks">Registration Desks</option>
+                  <option value="Amphitheatre">Amphitheatre</option>
+                </select>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.guestDetails.$invalid && eventForm.guestDetails.$dirty, 'has-error': (eventForm.guestDetails.$invalid) && eventForm.guestDetails.$dirty}">
+                Guest Details (If Applicable)
+                <input type="text" class="form-control" ng-model="guestDetails" name="guestDetails" placeholder="Guest Details">
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.budget.$invalid && eventForm.budget.$dirty, 'has-error': (eventForm.budget.$invalid ) && eventForm.budget.$dirty}">
+                Budget (If Applicable)
+                <input type="text" class="form-control" ng-model="budget" name="budget" placeholder="Budget">
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.sponsors.$invalid && eventForm.sponsors.$dirty, 'has-error': (eventForm.sponsors.$invalid) && eventForm.sponsors.$dirty}">
+                Sponsors (If Applicable)
+                <input type="text"class="form-control" ng-model="sponsors" name="sponsors" placeholder="Sponsors">
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <div class="form-break">
+                Student Co-ordinator Details
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-xs-10 col-xs-push-1 col-md-10 col-md-push-1">
+              <div class="form-group" ng-class="{'has-success': !eventForm.coordName.$invalid && eventForm.coordName.$dirty, 'has-error': (eventForm.coordName.$invalid || coordName=='' ) && eventForm.coordName.$dirty}">
+                Name
+                <input type="text" class="form-control" ng-model="coordName" name="coordName" placeholder="Name" required>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.coordRegNum.$invalid && eventForm.coordRegNum.$dirty, 'has-error': (eventForm.coordRegNum.$invalid || coordRegNum=='' ) && eventForm.coordRegNum.$dirty}">
+                Registration Number
+                <input type="text" class="form-control" ng-model="coordRegNum" name="coordRegNum" ng-pattern="regRegEx" placeholder="Registration Number" required>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.coordSchool.$invalid && eventForm.coordSchool.$dirty, 'has-error': (eventForm.coordSchool.$invalid || coordSchool=='' ) && eventForm.coordSchool.$dirty}">
+                <label for="sel5">School</label>
+                <select class="form-control" ng-model="coordSchool" name="coordSchool" id="sel5">
+                  <option value>--select--</option>
+                  <option value="School of Advanced Science (SAS)">School of Advanced Science (SAS)</option>
+                  <option value="School of Architecture (V-SPARC)">School of Architecture (V-SPARC)</option>
+                  <option value="School of Bio Science &amp; Technology (SBST)">School of Bio Science &amp; Technology (SBST)</option>
+                  <option value="School of Civil and Chemical Engineering (SCALE)">School of Civil and Chemical Engineering (SCALE)</option>
+                  <option value="School of Computer Science and Engineering (SCOPE)">School of Computer Science and Engineering (SCOPE)</option>
+                  <option value="School of Electrical Engineering (SELECT)">School of Electrical Engineering (SELECT)</option>
+                  <option value="School of Electronics Engineering (SENSE)">School of Electronics Engineering (SENSE)</option>
+                  <option value="School of Information Technology &amp; Engineering (SITE)">School of Information Technology &amp; Engineering (SITE)</option>
+                  <option value="School of Mechanical Engineering(SMEC)">School of Mechanical Engineering(SMEC)</option>
+                  <option value="School of Social Science &amp; Languages (SSL)">School of Social Science &amp; Languages (SSL)</option>
+                  <option value="VIT Business School (VIT BS)">VIT Business School (VIT BS)</option>
+                  <option value="Other Departments">Other Departments</option>
+                </select>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.coordPhone.$invalid && eventForm.coordPhone.$dirty, 'has-error': (eventForm.coordPhone.$invalid || coordPhone=='' ) && eventForm.coordPhone.$dirty}">
+                Mobile Number
+                <input type="number" class="form-control" min="1000000000" max="9999999999" name="coordPhone" ng-model="coordPhone" placeholder="Don't include +91 (or) 0, only 10 digits needed" required>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.coordEmail.$invalid && eventForm.coordEmail.$dirty, 'has-error': (eventForm.coordEmail.$invalid || coordEmail=='' ) && eventForm.coordEmail.$dirty}">
+                  Email
+                <input type="email" class="form-control" ng-model="coordEmail" name="coordEmail" placeholder="Email Id" required>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <div class="form-break">
+                Faculty Co-ordinator Details
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-xs-10 col-xs-push-1 col-md-10 col-md-push-1">
+              <div class="form-group" ng-class="{'has-success': !eventForm.facName.$invalid && eventForm.facName.$dirty, 'has-error': (eventForm.facName.$invalid || facName=='' ) && eventForm.facName.$dirty}">
+                Name
+                <input type="text" class="form-control" ng-model="facName" name="facName" placeholder="Name" required>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.facEmpId.$invalid && eventForm.facEmpId.$dirty, 'has-error': (eventForm.facEmpId.$invalid || facEmpId=='' ) && eventForm.facEmpId.$dirty}">
+                Employee ID
+                <input type="number" class="form-control" ng-model="facEmpId" name="facEmpId" placeholder="Registration Number" required>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.facSchool.$invalid && eventForm.facSchool.$dirty, 'has-error': (eventForm.facSchool.$invalid || facSchool=='' ) && eventForm.facSchool.$dirty}">
+                <label for="sel5">School</label>
+                <select class="form-control" ng-model="facSchool" name="facSchool" id="sel5">
+                  <option value>--select--</option>
+                  <option value="School of Advanced Science (SAS)">School of Advanced Science (SAS)</option>
+                  <option value="School of Architecture (V-SPARC)">School of Architecture (V-SPARC)</option>
+                  <option value="School of Bio Science &amp; Technology (SBST)">School of Bio Science &amp; Technology (SBST)</option>
+                  <option value="School of Civil and Chemical Engineering (SCALE)">School of Civil and Chemical Engineering (SCALE)</option>
+                  <option value="School of Computer Science and Engineering (SCOPE)">School of Computer Science and Engineering (SCOPE)</option>
+                  <option value="School of Electrical Engineering (SELECT)">School of Electrical Engineering (SELECT)</option>
+                  <option value="School of Electronics Engineering (SENSE)">School of Electronics Engineering (SENSE)</option>
+                  <option value="School of Information Technology &amp; Engineering (SITE)">School of Information Technology &amp; Engineering (SITE)</option>
+                  <option value="School of Mechanical Engineering(SMEC)">School of Mechanical Engineering(SMEC)</option>
+                  <option value="School of Social Science &amp; Languages (SSL)">School of Social Science &amp; Languages (SSL)</option>
+                  <option value="VIT Business School (VIT BS)">VIT Business School (VIT BS)</option>
+                  <option value="Other Departments">Other Departments</option>
+                </select>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.facPhone.$invalid && eventForm.facPhone.$dirty, 'has-error': (eventForm.facPhone.$invalid || facPhone=='' ) && eventForm.facPhone.$dirty}">
+                Mobile Number
+                <input type="number" class="form-control" min="1000000000" max="9999999999" ng-model="facPhone" name="facPhone" placeholder="Don't include +91 (or) 0, only 10 digits needed" required>
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.facEmail.$invalid && eventForm.facEmail.$dirty, 'has-error': (eventForm.facEmail.$invalid || facEmail=='' ) && eventForm.facEmail.$dirty}">
+                  Email
+                <input type="text" class="form-control" ng-model="facEmail" name="facEmail" ng-pattern="vitEmailRegEx" placeholder="Only VIT e-Mail Id" required>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <div class="form-break">
+                Other Details
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-xs-10 col-xs-push-1 col-md-10 col-md-push-1">
+              <div class="form-group" ng-class="{'has-success': !eventForm.ceoRequest.$invalid && eventForm.ceoRequest.$dirty, 'has-error': (eventForm.ceoRequest.$invalid) && eventForm.ceoRequest.$dirty}">
+                Campus Engineer Office Request
+                <input type="text" class="form-control" ng-model="ceoRequest" name="ceoRequest" placeholder="Table, Chair etc">
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.proRequest.$invalid && eventForm.proRequest.$dirty, 'has-error': (eventForm.proRequest.$invalid) && eventForm.proRequest.$dirty}">
+                PRO Office Request
+                <input type="text" class="form-control" ng-model="proRequest" name="proRequest" placeholder="Audio, Video etc">
+              </div>
+
+
+              <div class="form-group" ng-class="{'has-success': !eventForm.other.$invalid && eventForm.other.$dirty, 'has-error': (eventForm.other.$invalid) && eventForm.other.$dirty}">
+                Other Request
+                <input type="text" class="form-control" ng-model="other" name="other" placeholder="Any other request">
+              </div>
+              <br>
+              <p align="center">
+                <button type="submit" class="btn btn-primary" ng-disabled="eventForm.$invalid">Submit</button>
+              </p>
+              <br>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <br>
+  <br>
+</div>
+</div>
+</body>
+</html>

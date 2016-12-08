@@ -12,6 +12,8 @@ require('dotenv').config();
 
 var routes = require('./routes/index');
 var admin = require('./routes/admin');
+var events = require('./routes/events');
+var fc = require('./routes/fc');
 
 require(require('path').join(__dirname, './utils/passportAuth.js'))(passport);
 mongoose.connect(process.env.MONGO_URI);
@@ -43,6 +45,8 @@ app.use(compression({level: 6}));
 
 app.use('/', routes);
 app.use('/admin', admin);
+app.use('/events', events);
+app.use('/fc', fc);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

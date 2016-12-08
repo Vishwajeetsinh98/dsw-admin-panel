@@ -9,3 +9,9 @@ module.exports.checkUserType = function(types){
         }
     }
 }
+
+module.exports.sendError = function(statusCode, message){
+    var error = new Error(message);
+    error.status = statusCode;
+    return error;
+}

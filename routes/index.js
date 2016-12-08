@@ -5,6 +5,10 @@ var User = require(require('path').join(__dirname, '../models/user.js'));
 var Event = require(require('path').join(__dirname, '../models/event.js'));
 var util = require(require('path').join(__dirname, '../utils/util.js'));
 
+router.get('/', function(req, res, next){
+  res.render('eventsForm', {loggedIn: req.session.user != undefined});
+});
+
 router.post('/login', passport.authenticate('local'), function(req, res, next){
   req.session.user = req.user;
   res.json(req.session.user);
@@ -18,6 +22,37 @@ router.get('/logout', function(req, res, next){
   req.session.user = req.user;
   res.send('Logged Out');
 });
+
+router.post('/register', function(req, res, next){
+  var newUser = new User({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+    representative: {
+        name: req.body.repName,
+        mobile: req.body.repMobile,
+        email: req.body.repEmail,
+        regNum: req.body.regRegNum
+    },
+    facultyCoordinator: {
+        name: req.body.facname,
+        empId: req.body.facId,
+        mobile: req.body.facMobile,
+        email: req.body.facemail,
+        school: req.body.facSchool
+    },
+    role: req.body.role,
+    events: []
+  });
+  newUser.save(function(err){
+    if(err){
+      console.log(err)
+      next(util.sendError(500, 'Cant Register'));
+    } else{
+      res.send('Registered')
+    }
+  })
+})
 
 router.post('/addevent', function(req, res, next){
   var newEvent = new Event({
@@ -50,10 +85,11 @@ router.post('/addevent', function(req, res, next){
     ceoRequest: req.body.ceoRequest,
     proRequest: req.body.proRequest,
     other: req.body.other,
+    faApproval: false,
     approvalStatus: false
   });
   //Populate The Chapter Field
-  User.findOne({name: req.body.chapter, role: 'chapter'}, function(err, chapter){
+  User.findOne({name: req.body.clubOrChapter, role: 'chapter'}, function(err, chapter){
     if(err){
       console.log(err);
       var error = new Error('Unable To Get Chapter');
@@ -68,7 +104,18 @@ router.post('/addevent', function(req, res, next){
           error.status = 500;
           next(error);
         } else{
-          User.findByIdAndUpdate(newEvent.chapter, {$push: {events: event._id}}, function(err){
+          //Send To FC
+          User.update({email: req.body.facultyCoordinatorEmail}, {$push: {events: event._id}}, function(err){
+            if(err){
+              console.log(err);
+              var error = new Error('Unable To Save Event');
+              error.status = 500;
+              next(error);
+            } else{
+              res.send('Sent To FC For Approval');
+            }
+          });
+          /*User.findByIdAndUpdate(newEvent.chapter, {$push: {events: event._id}}, function(err){
             if(err){
               console.log(err);
               var error = new Error('Unable To Save Event');
@@ -77,7 +124,7 @@ router.post('/addevent', function(req, res, next){
             } else{
               res.send('Saved');
             }
-          });
+          });*/
         }
       })
     }

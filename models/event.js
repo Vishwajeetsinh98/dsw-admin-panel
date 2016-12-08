@@ -8,6 +8,10 @@ var Event = new mongoose.Schema({
         type: ObjectId,
         ref: 'Chapter'
     },
+    conductingBodyType: {
+        type: String,
+        enum: ['club', 'chapter']
+    },
     eventName: String,
     startDate: Date,
     endDate: Date,
@@ -36,6 +40,7 @@ var Event = new mongoose.Schema({
     ceoRequest: String,
     proRequest: String,
     other: String,
+    faApproval: Boolean,
     approvalStatus: Boolean
 });
 
