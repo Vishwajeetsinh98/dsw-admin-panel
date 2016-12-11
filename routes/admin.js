@@ -6,8 +6,21 @@ var Event = require(require('path').join(__dirname, '../models/event.js'));
 
 router.use(util.checkUserType(['clubAdmin', 'chapterAdmin']));
 
-router.get('/passevent', function(req, res, next){
-    
+router.post('/passevent', function(req, res, next){
+    Event.findByIdAndUpdate(req.body.eventFor, {$set: {approvalStatus: (req.body.accept === 'true')}}, function(err){
+        if(err){
+            next(util.sendError(500, 'Cant Approve / Reject'));
+        } else{
+            User.update({role: {$in: ['dsw', 'clubAdmin', 'chapterAdmin', 'superAdmin']}}, {$push: {fullyApprovedEvents: req.body.eventFor}, $pull: {events: req.body.eventFor}}, function(err){
+                if(err){
+                    next(util.sendError(500, 'Cant Remove From Pending of Other Users'))
+                } else{
+                    req.session.user.events = req.session.user.events.indexOf(req.body.eventFor) == 0 ? req.session.user.events.splice(req.session.user.events.indexOf(req.body.eventFor), 0) : req.session.user.events.splice(req.session.user.events.indexOf(req.body.eventFor), 1);
+                    res.send('Event Has Been Approved');
+                }
+            })
+        }
+    })
 })
 
 router.post('/editevent', function(req, res, next){
@@ -18,7 +31,7 @@ router.post('/editevent', function(req, res, next){
         if(changeField!=undefined)
         query[changeField] = changeValue;
     }
-    Event.findByIdAndUpdate(req.body.eventFor, query, function(req, res, next){
+    Event.findByIdAndUpdate(req.body.eventFor, query, function(err){
         if(err){
             next(util.sendError(500, 'Cant Update Event'));
         } else{
@@ -27,10 +40,9 @@ router.post('/editevent', function(req, res, next){
                     console.log(err)
                     next(util.sendError(500, 'Cant Send To DSW'));
                 } else{
-                    res.send('Sent To DSW');
+                    res.send('Editted. Sent To DSW');
                 }
             })
-            res.send('Editted');
         }
     })
 });

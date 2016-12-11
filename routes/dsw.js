@@ -39,12 +39,18 @@ router.post('/passevent', function(req, res, next){
     })
 });
 
-router.post('/approveOverall', function(req, res, next){
+router.post('/approveoverall', function(req, res, next){
     Event.findByIdAndUpdate(req.body.eventFor, {$set: {approvalStatus: (req.body.accept === 'true')}}, function(err){
         if(err){
             next(util.sendError(500, 'Cant Approve / Reject Event'))
         } else{
-            res.send(req.body.accept === 'true' ? 'Approved Successfully' : 'Rejected Successfully');
+            User.update({role: {$in: ['dsw', 'superAdmin', 'clubAdmin', 'chapterAdmin']}}, {$push: {fullyApprovedEvents: req.body.eventFor}, $pull: {events: req.body.eventFor}}, function(err){
+                if(err){
+                    next(util.sendError(500,  'Cant Communicate To Admins'))
+                } else{
+                    res.send(req.body.accept === 'true' ? 'Approved Successfully' : 'Rejected Successfully');
+                }
+            })
         }
     })
 });
@@ -57,11 +63,17 @@ router.post('/editevent', function(req, res, next){
         if(changeField!=undefined)
         query[changeField] = changeValue;
     }
-    Event.findByIdAndUpdate(req.body.eventFor, query, function(req, res, next){
+    Event.findByIdAndUpdate(req.body.eventFor, query, function(err, event){
         if(err){
             next(util.sendError(500, 'Cant Update Event'));
         } else{
-            res.send('Editted');
+            User.update({role: {$in: [event.conductingBodyType + 'Admin']}}, {$push: {changedEvents: {by: req.session.user.role, event: req.body.eventFor}}}, function(err){
+                if(err){
+                    next(util.sendError(500, 'Cant Communicate Changes To Admins'))
+                } else{
+                    res.send('Editted');
+                }
+            })
         }
     })
 })

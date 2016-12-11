@@ -31,6 +31,10 @@ var User = new mongoose.Schema({
         type: ObjectId,
         ref: 'Event'
     }],
+    fullyApprovedEvents: [{
+        type: ObjectId,
+        ref: 'Event'
+    }],
     changedEvents: [{
         by: String,
         event: {
