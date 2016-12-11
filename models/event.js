@@ -40,7 +40,12 @@ var Event = new mongoose.Schema({
     ceoRequest: String,
     proRequest: String,
     other: String,
-    faApproval: Boolean,
+    fcApproval: Boolean,
+    approvals: [{
+        by: String,
+        approved: Boolean,
+        when: Date
+    }],
     approvalStatus: Boolean
 });
 

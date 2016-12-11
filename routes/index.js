@@ -56,7 +56,8 @@ router.post('/register', function(req, res, next){
 
 router.post('/addevent', function(req, res, next){
   var newEvent = new Event({
-    clubOrChapter: req.body.clubOrChapter,
+    conductingBodyType: req.body.clubOrChapter,
+    clubOrChapter: req.body[ "" + req.body.clubOrChapter ],
     eventName: req.body.eventName,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
@@ -85,11 +86,12 @@ router.post('/addevent', function(req, res, next){
     ceoRequest: req.body.ceoRequest,
     proRequest: req.body.proRequest,
     other: req.body.other,
-    faApproval: false,
+    approvals: [],
+    fcApproval: false,
     approvalStatus: false
   });
   //Populate The Chapter Field
-  User.findOne({name: req.body.clubOrChapter, role: 'chapter'}, function(err, chapter){
+  User.findOne({name: newEvent.clubOrChapter, role: 'chapter'}, function(err, chapter){
     if(err){
       console.log(err);
       var error = new Error('Unable To Get Chapter');

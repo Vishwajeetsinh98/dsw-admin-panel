@@ -14,6 +14,7 @@ var routes = require('./routes/index');
 var admin = require('./routes/admin');
 var events = require('./routes/events');
 var fc = require('./routes/fc');
+var dsw = require('./routes/dsw');
 
 require(require('path').join(__dirname, './utils/passportAuth.js'))(passport);
 mongoose.connect(process.env.MONGO_URI);
@@ -47,6 +48,7 @@ app.use('/', routes);
 app.use('/admin', admin);
 app.use('/events', events);
 app.use('/fc', fc);
+app.use('/dsw', dsw);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
