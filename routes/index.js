@@ -9,6 +9,10 @@ router.get('/', function(req, res, next){
   res.render('eventsForm', {loggedIn: req.session.user != undefined});
 });
 
+router.get('/login', function(req, res, next){
+  res.render('login');
+})
+
 router.post('/login', passport.authenticate('local'), function(req, res, next){
   req.session.user = req.user;
   res.json(req.session.user);
