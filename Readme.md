@@ -31,7 +31,8 @@ Roles:
 
 Eg. ```/route```
 
-| HTTP Verb | Route           | Request Format                              | Success Response                     | Failure Response     Comments | Access         |
+| HTTP Verb | Route           | Request Format                              | Success Response                     | Failure Response     Comments | Access         |  
+
 |-----------|-----------------|---------------------------------------------|--------------------------------------|----------------------|----------|----------------|
 |   GET     |       /         |                  {}                         |    Render Events Form                |    None              | Form To Submit Events | Public |
 |   POST    |      /addevent  |  {body: {Events Schema Items}}              |    Event Successfully Saved          |    Error Details     | Save the event and Forward to FA for approval | Public |
