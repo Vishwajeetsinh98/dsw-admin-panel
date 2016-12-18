@@ -53,9 +53,11 @@ Eg. ```events/route```
 
 ###FC Routes
 
-Eg. ```fc/routes```
-Allowed Roles: ['fc']
-| HTTP Verb | Route           | Request Format                              | Success Response                     | Failure Response     | Comments | Access         |
+Eg. ```fc/routes```  
+
+Allowed Roles: ['fc']  
+
+| HTTP Verb | Route           | Request Format                              | Success Response                     | Failure Response  | | Comments | Access         |
 |-----------|-----------------|---------------------------------------------|--------------------------------------|----------------------|----------|----------------|
 |  POST     |   /accept       |       {body: {eventId: String, accept: Boolean}} |   Redirect to Home with succes message | Redirect to Home with failure Message | The Faculty Coordinator will approve the event and then, the event will be sent to DSW and superAdmin |  FC | 
 
