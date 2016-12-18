@@ -32,7 +32,7 @@ router.post('/forward', function(req, res, next){
             res.send('Forwarded');
         }
     })
-})
+});
 
 router.post('/editevent', function(req, res, next){
     var query = {};

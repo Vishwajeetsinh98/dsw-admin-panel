@@ -8,7 +8,7 @@ router.use(util.checkUserType(['fc']));
 
 router.post('/accept', function(req, res, next){
     var query = {fcApproval: req.body.accept, $push: {approvals: {by: "fc", approved: req.body.accept, when: new Date()}}};
-    Event.findByIdAndUpdate(req.body.eventFor, query, function(err, event){
+    Event.findByIdAndUpdate(req.body.eventId, query, function(err, event){
         if(err){
             console.log(err);
             next(util.sendError(500, 'Cant Approve Right Now'))
