@@ -83,3 +83,8 @@ Allowed Roles: ['clubAdmin', 'chapterAdmin']
 |   POST    |     /approve    |    {eventFor: String, accept: Boolean}      |    Redirect to Home with related message   |   Redirect to Home with failure Message |  The event is approved or rejected finally, because the DSW has already approved. | clubAdmin, chapterAdmin | 
 |   POST    |     /forward    |    {eventId: String, role: String}                        |    Redirect to Home                  |      Redirect to home with failure message    |  To forward the event without approving or rejecting it   | clubAdmin, chapterAdmin |
 |   POST    |     /editevent  |     {body: {eventFor: String, length: Number, changes: [,,.{changeField: String, changeValue: String}]}}  | Redirect to Home with related message | Redirect to home with error message  |  To edit the details of event. The event is then resent to DSW to get it's permission for the updated details. | clubAdmin, chapterAdmin | 
+
+###Status Codes
+- 401 Authentication Failed. Invalid Credentials
+- 403 Unauthorized. Current user type can't access the route
+- 500 Internal Error
