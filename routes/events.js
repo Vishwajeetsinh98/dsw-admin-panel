@@ -4,15 +4,7 @@ var util = require(require('path').join(__dirname, '../utils/util.js'));
 var User = require(require('path').join(__dirname, '../models/user.js'));
 var Event = require(require('path').join(__dirname, '../models/event.js'));
 
-router.get('/all', function(req, res, next){
-  Event.find({})
-  .exec(function(err, data){
-    res.json({events: data});
-  });
-});
-
-router.use(util.checkUserType(['fc', 'dsw', 'clubAdmin', 'chapterAdmin', 'superAdmin']))
-router.get('/', function(req, res, next){
+router.get('/list', function(req, res, next){
   Event.find({_id: {$in: req.session.user.events}})
   .exec(function(err, events){
     if(err){
@@ -21,6 +13,19 @@ router.get('/', function(req, res, next){
       //res.render('eventsList', {data: events});
       res.json({data: events});
     }
+  });
+})
+
+router.get('/', function(req, res, next){
+  res.render('eventsList');
+});
+
+router.use(util.checkUserType(['fc', 'dsw', 'clubAdmin', 'chapterAdmin', 'superAdmin']))
+
+router.get('/all', function(req, res, next){
+  Event.find({})
+  .exec(function(err, data){
+    res.render('eventsList',{events: data});
   });
 });
 

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Home</title>
+
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+
+  <!--STYLES-->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/vex-theme-top.css" />
+  <script src="/js/vex.combined.min.js"></script>
+  <!--STYLES -->
+</head>
+
+<body>
+
+  <div class="container-fluid">
+    <div class="row">
+      <br>
+      <h1 align="center">Home</h1>
+      <br><hr><br>
+      <div class="col-sm-8 col-xs-10 col-sm-push-2 col-xs-push-1">
+        <ul id="home" align="center">
+            <% for(var i=0; i<options.length; i++){ %>
+                <li>
+                  <a href="<%=options[i].link%>"><%=options[i].heading%></a>
+                </li>
+            <% } %>
+                <li>
+                  <a href="/logout">Logout</a>
+                </li>
+        </ul>
+       </div>
+      </div>
+    </div>
+    <input type="hidden" id="message" value="<%=message%>">
+</body>
+</html>
+
+<script>
+  vex.defaultOptions.className = 'vex-theme-top';
+  if(document.getElementById('message').value.length > 0){
+    vex.dialog.alert({
+        message: document.getElementById('message').value
+    })
+  }
+</script>

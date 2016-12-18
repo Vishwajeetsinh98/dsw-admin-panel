@@ -15,8 +15,14 @@ router.get('/login', function(req, res, next){
 
 router.post('/login', passport.authenticate('local'), function(req, res, next){
   req.session.user = req.user;
-  res.json(req.session.user);
+  res.redirect('/home');
 });
+
+router.get('/home', function(req, res, next){
+  var message = req.session.message;
+  req.session.message = null;
+  res.render('home', {message: message, options: util.getOptions(req.session.user.role)});
+})
 
 router.get('/logout', function(req, res, next){
   if(!req.session.user)
@@ -24,7 +30,7 @@ router.get('/logout', function(req, res, next){
   req.logout();
   res.clearCookie();
   req.session.user = req.user;
-  res.send('Logged Out');
+  res.redirect('/login');
 });
 
 router.post('/register', function(req, res, next){
@@ -98,39 +104,30 @@ router.post('/addevent', function(req, res, next){
   User.findOne({name: newEvent.clubOrChapter, role: 'chapter'}, function(err, chapter){
     if(err){
       console.log(err);
-      var error = new Error('Unable To Get Chapter');
-      error.status = 500;
-      next(error);
+      next(util.sendError(500, 'Unable To Save Event'));
     } else{
       newEvent.chapter = chapter._id;
       newEvent.save(function(err, event){
         if(err){
           console.log(err);
-          var error = new Error('Unable To Save Event');
-          error.status = 500;
-          next(error);
+          next(util.sendError(500, 'Unable To Save Event'));
         } else{
           //Send To FC
           User.update({email: req.body.facultyCoordinatorEmail}, {$push: {events: event._id}}, function(err){
             if(err){
               console.log(err);
-              var error = new Error('Unable To Save Event');
-              error.status = 500;
-              next(error);
+              next(util.sendError(500, 'Unable To Save Event'));
             } else{
-              res.send('Sent To FC For Approval');
-            }
+                User.findByIdAndUpdate(newEvent.chapter, {$push: {events: event._id}}, function(err){
+                  if(err){
+                    console.log(err);
+                    next(util.sendError(500, 'Unable To Save Event'));
+                  } else{
+                    res.send('Sent To FC For Approval');
+                  }
+                });
+              }
           });
-          /*User.findByIdAndUpdate(newEvent.chapter, {$push: {events: event._id}}, function(err){
-            if(err){
-              console.log(err);
-              var error = new Error('Unable To Save Event');
-              error.status = 500;
-              next(error);
-            } else{
-              res.send('Saved');
-            }
-          });*/
         }
       })
     }

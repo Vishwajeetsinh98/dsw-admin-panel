@@ -6,7 +6,7 @@ var Event = require(require('path').join(__dirname, '../models/event.js'));
 
 router.use(util.checkUserType(['dsw', 'superAdmin']));
 
-router.post('/passevent', function(req, res, next){
+router.post('/approve', function(req, res, next){
     var query = {$push: {approvals: {by: req.session.user.role, approved: req.body.accept, when: new Date()}}};
     req.body.accept = req.body.accept === 'true';
     Event.findByIdAndUpdate(req.body.eventFor, query, function(err, event){
@@ -38,6 +38,17 @@ router.post('/passevent', function(req, res, next){
         }
     })
 });
+
+router.post('/forward', function(req, res, next){
+    User.update({role: req.body.role}, {$push: {events: req.body.eventId}}, function(err){
+        if(err){
+            console.log(err);
+            next(util.sendError(500, 'Can\'t Forward Event'));
+        } else{
+            res.send('Forwarded');
+        }
+    })
+})
 
 router.post('/approveoverall', function(req, res, next){
     Event.findByIdAndUpdate(req.body.eventFor, {$set: {approvalStatus: (req.body.accept === 'true')}}, function(err){
