@@ -18,8 +18,13 @@
         background:white;
     }
 </style>
-<body ng-app="app" ng-controller="listController">
-<div class="container-fluid" ng-init="getEvents()">
+<script>
+app.controller("allEventsController", function($scope,$http){
+    $scope.events=<%-JSON.stringify(events)%>;
+});
+</script>
+<body ng-app="app" ng-controller="allEventsController">
+<div class="container-fluid">
     <div class="row">
         <h1 align="center">Admin Panel</h1>
         <h4 align="center">List of Events</h4>
@@ -53,14 +58,16 @@
             <td>{{event.clubOrChapter}}</td>
             <td>{{event.startDate}}</td>
             <td>Reviewed By:
+                <a href="#">
                 <ul ng-repeat="user in event.approvals">
                     <li ng-if="user.approved">
                         {{user.by}}
                     </li>
                 </ul>
+                </a>
             </td>
-            <td ng-class="{'pass':event.fcApproval, 'reject':!event.fcApproval}">
-                <span ng-if="event.fcApproval">pass</span><span ng-if="!event.fcApproval">fail</span>
+            <td ng-class="{'pass':event.approvedStatus, 'reject':!event.approvedStatus}">
+                <span ng-if="event.approvedStatus">pass</span><span ng-if="!event.approvedStatus">fail</span>
             </td>
             </tr>
         </tbody>

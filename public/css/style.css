@@ -105,3 +105,9 @@ body{
 .btn{
   border-radius: 0;
 }
+#home li{
+  list-style-type: none;
+}
+#home{
+  font-size: 160%;
+}

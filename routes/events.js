@@ -25,7 +25,7 @@ router.use(util.checkUserType(['fc', 'dsw', 'clubAdmin', 'chapterAdmin', 'superA
 router.get('/all', function(req, res, next){
   Event.find({})
   .exec(function(err, data){
-    res.render('eventsList',{events: data});
+    res.render('allEvents',{events: data});
   });
 });
 

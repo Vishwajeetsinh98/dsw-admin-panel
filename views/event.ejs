@@ -18,7 +18,7 @@
         background:white;
     }
 </style>
-<body ng-app="app" ng-controller="eventController">
+<body onload="parseDate('<%=event.startDate%>', '<%=event.endDate%>')">
 <div class="container-fluid">
     <div class="row">
         <h1 align="center">Admin Panel</h1>
@@ -46,7 +46,7 @@
                           </tr>
                           <tr>
                           <td>Start Date -- End Date</td>
-                          <td><%=event.startDate%> -- <%=event.endDate%></td>
+                          <td id="date"></td>
                           </tr>
                           <tr>
                           <td>Start Time</td>
@@ -134,5 +134,13 @@
 </div>
 <br>
 <br>
+<script>
+  function parseDate(sDate, eDate){
+    sDate=sDate.substr(0,15);
+    eDate=eDate.substr(0,15);
+    var date=sDate+" -- "+eDate;
+    $("#date").html(date);
+  }
+</script>
 </body>
 </html>
