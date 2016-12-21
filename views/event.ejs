@@ -12,13 +12,15 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/angular.min.js"></script>
     <script src="/js/angular-script.js"></script>
+    <link rel="stylesheet" href="/css/vex-theme-top.css" />
+    <script src="/js/vex.combined.min.js"></script>
 </head>
 <style>
     body{
         background:white;
     }
 </style>
-<body onload="parseDate('<%=event.startDate%>', '<%=event.endDate%>')" id="event-body">
+<body onload="parseDate('<%=event.startDate%>', '<%=event.endDate%>');parseTime('<%=event.startTime%>');" id="event-body">
 <div class="container-fluid" ng-app="app" ng-controller="eventController">
     <div class="row" ng-init="id='<%=event._id%>'">
         <h1 align="center">Admin Panel</h1>
@@ -28,8 +30,16 @@
         <div class="container-fluid">
         <div class="row">
             <div class="col-sm-8 col-xs-10 col-xs-push-1 col-sm-push-2">
+              <%if(role=='dsw' || role=='clubAdmin' || role=='chapterAdmin'){%>
+                <p align="right">
+                  <a ng-click="edit=!edit" href="#">Edit Event</a>
+                </p>
+              <%}%>
+                <br>
                 <div class="container-fluid">
-                  <div class="row">
+                  <div class="row" ng-init='initEvents(<%-JSON.stringify(event)%>,"<%=role%>");'>
+
+                    <form name="editEventForm">
                       <table class="table table-bordered table-striped event-list-table">
                       <tbody>
                           <tr>
@@ -46,27 +56,97 @@
                           </tr>
                           <tr>
                           <td>Start Date -- End Date</td>
-                          <td id="date"></td>
+                          <td>
+                            <span id="date" ng-show="!edit"></span>
+                            <span ng-show="edit">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <input type="date" class="form-control" name="startDate" ng-model="startDate_model" value="{{startDate_model}}">
+                                </div>
+                                <div class="col-md-6">
+                                  <input type="date" class="form-control" name="endDate" ng-model="endDate_model" value="{{endDate_model}}">
+                                </div>
+                              </div>
+                            </span>
+                          </td>
                           </tr>
                           <tr>
                           <td>Start Time</td>
-                          <td><%=event.startTime%></td>
+                          <td>
+                            <span ng-show="!edit" id="time"></span>
+                            <span ng-show="edit">
+                              <input type="time" class="form-control" name="startTime" ng-model="startTime_model" value="{{startTime_model}}">
+                            </span>
+                          </td>
                           </tr>
                           <tr>
-                          <td>Duration</td>
-                          <td><%=event.duration%> Hours</td>
+                          <td>Duration (hours)</td>
+                          <td>
+                            <span ng-show="!edit"><%=event.duration%> Hours</span>
+                            <span ng-show="edit">
+                              <input type="number" class="form-control" name="duration" ng-model="duration_model">
+                            </span>
+                          </td>
                           </tr>
                           <tr>
                           <td>Description</td>
-                          <td><%=event.eventDescription%></td>
+                          <td>
+                            <span ng-show="!edit"><%=event.eventDescription%></span>
+                            <span ng-show="edit">
+                              <input type="text" class="form-control"  name="eventDescription" ng-model="description_model">
+                            </span>
+                          </td>
                           </tr>
                           <tr>
                           <td>Expected Number of Participants</td>
-                          <td><%=event.eventParticipants%></td>
+                          <td>
+                            <span ng-show="!edit"><%=event.eventParticipants%></span>
+                            <span ng-show="edit">
+                              <input type="text" class="form-control" name="eventParticipants" ng-model="participants_model">
+                            </span>
+                          </td>
                           </tr>
                           <tr>
                           <td>Venue Requirements</td>
-                          <td><%=event.venueRequirement%></td>
+                          <td>
+                            <span ng-show="!edit"><%=event.venueRequirement%></span>
+                            <span ng-show="edit">
+                              <select class="form-control" ng-model="venue_model" name="venueRequirement">
+                                <option value>--select--</option>
+                                <option value="Anna Auditorium">Anna Auditorium</option>
+                                <option value="Channa Reddy Auditorium">Channa Reddy Auditorium</option>
+                                <option value="Shakespeare Gallery / TT Gallery - I">Shakespeare Gallery / TT Gallery - I</option>
+                                <option value="VOC Gallery / TT Gallery - II">VOC Gallery / TT Gallery - II</option>
+                                <option value="Dr. Ambedkar Auditorium">Dr. Ambedkar Auditorium</option>
+                                <option value="Kamaraj Auditorium">Kamaraj Auditorium</option>
+                                <option value="Rajaji Hall">Rajaji Hall</option>
+                                <option value="Homi Bhabha Gallery / SJT -4th floor">Homi Bhabha Gallery / SJT -4th floor</option>
+                                <option value="Sarojini Naidu Gallery / SJT-6th floor">Sarojini Naidu Gallery / SJT-6th floor</option>
+                                <option value="Bhagat Singh Gallery /SJT 8th Floor – Non A/C">Bhagat Singh Gallery /SJT 8th Floor – Non A/C</option>
+                                <option value="CS Hall">CS Hall</option>
+                                <option value="Smart Class Room-TT">Smart Class Room-TT<</option>
+                                <option value="Smart Class Room-SJT">Smart Class Room-SJT</option>
+                                <option value="Smart Class Room-SMV">Smart Class Room-SMV</option>
+                                <option value="Smart Class Room-CDMM">Smart Class Room-CDMM</option>
+                                <option value="Smart Class Room-MGR">Smart Class Room-MGR<</option>
+                                <option value="ClassRoom-TT">ClassRoom-TT</option>
+                                <option value="ClassRoom-SJT">ClassRoom-SJT</option>
+                                <option value="ClassRoom-SMV">ClassRoom-SMV</option>
+                                <option value="ClassRoom-CDMM">ClassRoom-CDMM</option>
+                                <option value="ClassRoom-MGR">ClassRoom-MGR</option>
+                                <option value="BasketBall-MB">BasketBall-MB</option>
+                                <option value="BasketBall-TT">BasketBall-TT</option>
+                                <option value="Foodys - SMV">Foodys - SMV</option>
+                                <option value="Foodys - SJT-I">Foodys - SJT-I</option>
+                                <option value="Foodys - SJT-II">Foodys - SJT-II</option>
+                                <option value="WoodStock">WoodStock</option>
+                                <option value="Greenos">Greenos</option>
+                                <option value="Outside Visit">Outside Visit</option>
+                                <option value="Registration Desks">Registration Desks</option>
+                                <option value="Amphitheatre">Amphitheatre</option>
+                              </select>
+                            </span>
+                          </td>
                           </tr>
                           <tr>
                           <td>Guest Details</td>
@@ -78,7 +158,12 @@
                           </tr>
                           <tr>
                           <td>Budget</td>
-                          <td><%=event.budget%></td>
+                          <td>
+                            <span ng-show="!edit"><%=event.budget%></span>
+                            <span ng-show="edit">
+                              <input type="text" class="form-control" name="budget" ng-model="budget_model">
+                            </span>
+                          </td>
                           </tr>
                           <tr>
                           <td>Student Co-ordinator Details</td>
@@ -98,18 +183,38 @@
                           </tr>
                           <tr>
                           <td>Campus Engineer Office Request</td>
-                          <td><%=event.ceoRequest%></td>
+                          <td>
+                            <span ng-show="!edit"><%=event.ceoRequest%></span>
+                            <span ng-show="edit">
+                              <input type="text" class="form-control" name="ceoRequest" ng-model="ceoRequest_model">
+                            </span>
+                          </td>
                           </tr>
                           <tr>
                           <td>PRO Office Request</td>
-                          <td><%=event.proRequest%></td>
+                          <td>
+                            <span ng-show="!edit"><%=event.proRequest%></span>
+                            <span ng-show="edit">
+                              <input type="text" class="form-control" name="proRequest" ng-model="proRequest_model">
+                            </span>
+                          </td>
                           </tr>
                           <tr>
                           <td>Other Request</td>
-                          <td><%=event.other%></td>
+                          <td>
+                            <span ng-show="!edit"><%=event.other%></span>
+                            <span ng-show="edit">
+                              <input type="text" class="form-control" name="other" ng-model="other_model">
+                            </span>
+                          </td>
                           </tr>
                       </tbody>
                       </table>
+                      <br><br>
+                      <p align="center" ng-show="edit">
+                        <button class="btn btn-primary" ng-click="submit_form()">Update</button>
+                      </p>
+                    </form>
                   </div>
               </div>
               <hr>
@@ -240,7 +345,7 @@
                                 <label><input type="checkbox" ng-click="manage('superAdmin')">Super Admin</label>
                               </div>
                               <div class="checkbox">
-                                <label><input type="checkbox" ng-click="manage('admin')">Admin</label>
+                                <label><input type="checkbox" ng-click="manage('dsw')">DSW</label>
                               </div>
                               <button class="submit btn btn-primary" ng-click="forward()">Submit</button>
                           </div>
@@ -267,6 +372,11 @@
     var date=sDate+" -- "+eDate;
     $("#date").html(date);
   }
+  function parseTime(time){
+    var t=(new Date(time)).toLocaleTimeString();
+    $("#time").html(t);
+  }
+  vex.defaultOptions.className = 'vex-theme-top';
 </script>
 </body>
 </html>
