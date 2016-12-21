@@ -24,7 +24,7 @@ router.post('/approve', function(req, res, next){
 });
 
 router.post('/forward', function(req, res, next){
-    User.update({role: req.body.role}, {$push: {events: req.body.eventId}}, function(err){
+    User.update({role: {$in: req.body.roles.split(',')}}, {$push: {events: req.body.eventId}}, function(err){
         if(err){
             console.log(err);
             next(util.sendError(500, 'Can\'t Forward Event'));
