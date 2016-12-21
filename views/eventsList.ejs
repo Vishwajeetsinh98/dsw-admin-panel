@@ -43,6 +43,7 @@
             <th>Chapter/Club Name</th>
             <th>Event Date</th>
             <th>Reviewed Status</th>
+            <th>Faculty Coordinator Apporval</th>
             <th>Final Status</th>
             </tr>
         </thead>
@@ -60,7 +61,10 @@
                 </ul>
             </td>
             <td ng-class="{'pass':event.fcApproval, 'reject':!event.fcApproval}">
-                <span ng-if="event.fcApproval">pass</span><span ng-if="!event.fcApproval">fail</span>
+                <span ng-if="event.fcApproval">pass</span><span ng-if="!event.fcApproval">Reject</span>
+            </td>
+            <td ng-class="{'pass':event.approvalStatus, 'reject':!event.approvalStatus}">
+                <span ng-if="event.approvalStatus">pass</span><span ng-if="!event.approvalStatus">Reject</span>
             </td>
             </tr>
         </tbody>

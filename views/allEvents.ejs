@@ -18,11 +18,7 @@
         background:white;
     }
 </style>
-<script>
-app.controller("allEventsController", function($scope,$http){
-    $scope.events=<%-JSON.stringify(events)%>;
-});
-</script>
+
 <body ng-app="app" ng-controller="allEventsController">
 <div class="container-fluid">
     <div class="row">
@@ -36,48 +32,144 @@ app.controller("allEventsController", function($scope,$http){
                 <div class="form-group">
                     <input type="text" class="form-control" ng-model="eventSearch" name="eventSearch" placeholder="Search for Events">
                 </div>
+                <p align="center">
+                  <a style="cursor:pointer;" data-toggle="collapse" data-target="#filters">Filter Events</a>
+                </p>
+                <div id="filters" class="collapse">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="filter-section">
+                        <span class="filter-title">Club/Chater</span>
+                        <div class="checkbox">
+                          <label><input type="checkbox" ng-click="manage_clubOrChapter('club')">Club</label>
+                        </div>
+                        <div class="checkbox">
+                          <label><input type="checkbox" ng-click="manage_clubOrChapter('chapter')">Chapter</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="filter-section">
+                        <span class="filter-title">Faculty Coordinator Approval</span>
+                        <div class="checkbox">
+                          <label><input type="checkbox" ng-click="manage_faApproval(true)">Approved</label>
+                        </div>
+                        <div class="checkbox">
+                          <label><input type="checkbox" ng-click="manage_faApproval(false)">Rejected</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="filter-section">
+                        <span class="filter-title">Final Approval</span>
+                        <div class="checkbox">
+                          <label><input type="checkbox" ng-click="manage_approval(true)">Approved</label>
+                        </div>
+                        <div class="checkbox">
+                          <label><input type="checkbox" ng-click="manage_approval(false)">Rejected</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="filter-section">
+                        <div class="filter-title">Date of Event</div><br>
+                          <input type="date" id="date" ng-model="date" name="date"><br>
+                          <a onclick="resetDate()" href="#">reset</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <br>
                 <br>
                 <div class="container-fluid">
-    <div class="row">
-        <table class="table table-bordered event-list-table">
-        <thead>
-            <tr>
-            <th>#</th>
-            <th>Event Name</th>
-            <th>Chapter/Club Name</th>
-            <th>Event Date</th>
-            <th>Reviewed Status</th>
-            <th>Final Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="event in events | filter:eventSearch">
-            <th scope="row">{{$index + 1}}</th>
-            <td><a ng-href="/events/{{event._id}}">{{event.eventName}}</a></td>
-            <td>{{event.clubOrChapter}}</td>
-            <td>{{event.startDate}}</td>
-            <td>Reviewed By:
-                <a href="#">
-                <ul ng-repeat="user in event.approvals">
-                    <li ng-if="user.approved">
-                        {{user.by}}
-                    </li>
-                </ul>
-                </a>
-            </td>
-            <td ng-class="{'pass':event.approvedStatus, 'reject':!event.approvedStatus}">
-                <span ng-if="event.approvedStatus">pass</span><span ng-if="!event.approvedStatus">fail</span>
-            </td>
-            </tr>
-        </tbody>
-        </table>
-    </div>
-</div>
+                  <div class="row">
+                      <table class="table table-bordered event-list-table">
+                      <thead>
+                          <tr>
+                          <th>#</th>
+                          <th>Event Name</th>
+                          <th>Chapter/Club Name</th>
+                          <th>Event Date</th>
+                          <th>Reviewed Status</th>
+                          <th>Faculty Coordniator Approval</th>
+                          <th>Final Status</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr ng-repeat="event in events | filter:eventSearch | clubOrChapterFilter:clubOrChapter | faApprovalFilter:faApproval | approvalFilter:approval | dateFilter:date">
+                          <th scope="row">{{$index + 1}}</th>
+                          <td><a ng-href="/events/{{event._id}}">{{event.eventName}}</a></td>
+                          <td>{{event.clubOrChapter}}</td>
+                          <td>{{formatDate(event.startDate)}}</td>
+                          <td>Reviewed By:
+                              <ul id="reviewed-by" ng-repeat="user in event.approvals">
+                                  <li ng-if="user.approved">
+                                      {{user.by}}
+                                  </li>
+                              </ul>
+                          </td>
+                          <td ng-class="{'pass':event.fcApproval, 'reject':!event.fcApproval}">
+                              <span ng-if="event.fcApproval">pass</span><span ng-if="!event.fcApproval">Reject</span>
+                          </td>
+                          <td ng-class="{'pass':event.approvalStatus, 'reject':!event.approvalStatus}">
+                              <span ng-if="event.approvalStatus">pass</span><span ng-if="!event.approvalStatus">Reject</span>
+                          </td>
+                          </tr>
+                      </tbody>
+                      </table>
+                  </div>
+              </div>
             </div>
         </div>
         </div>
     </div>
 </div>
+<script>
+  function resetDate(){
+    $("input[type=date][name$=date]").val("");
+    $("#date").trigger("input");
+  }
+</script>
+<script>
+app.controller("allEventsController", function($scope,$http){
+    $scope.events=<%-JSON.stringify(events)%>;
+    $scope.formatDate=function(iDate){
+      var date=new Date(iDate);
+      var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+      var Fdate=date.getDate()+' '+months[date.getMonth()]+' '+date.getFullYear() ;
+      return Fdate;
+    }
+    $scope.clubOrChapter=[];
+    $scope.manage_clubOrChapter=function(clubOrChapter){
+    var i=$scope.clubOrChapter.indexOf(clubOrChapter);
+    if(i==-1){
+      $scope.clubOrChapter.push(clubOrChapter);
+    }
+    else{
+      $scope.clubOrChapter.splice(i,1);
+    }
+  }
+  $scope.faApproval=[];
+  $scope.manage_faApproval=function(faApproval){
+  var i=$scope.faApproval.indexOf(faApproval);
+  if(i==-1){
+    $scope.faApproval.push(faApproval);
+  }
+  else{
+      $scope.faApproval.splice(i,1);
+    }
+  }
+  $scope.approval=[];
+  $scope.manage_approval=function(approval){
+  var i=$scope.approval.indexOf(approval);
+  if(i==-1){
+    $scope.approval.push(approval);
+  }
+  else{
+    $scope.approval.splice(i,1);
+  }
+}
+});
+</script>
 </body>
 </html>
