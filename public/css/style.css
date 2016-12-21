@@ -90,6 +90,12 @@ body{
   border-right: 1px solid rgba(0,0,0,0.5);
   min-height: 120px;
 }
+#event-body button[type=submit]{
+  margin-top: 10px;
+}
+#event-body form{
+  margin-top: -20px;
+}
 @media(max-width:600px){
   .form-head{
     font-size: 140%;

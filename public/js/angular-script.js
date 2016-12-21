@@ -13,6 +13,62 @@ app.controller("listController", function($scope,$http){
   }
 });
 
+app.controller("eventController", function($scope,$http){
+  $scope.admin_dsw=[];
+  $scope.manage_dsw=function(admin_dsw){
+  var i=$scope.admin_dsw.indexOf(admin_dsw);
+  if(i==-1){
+    $scope.admin_dsw.push(admin_dsw);
+  }
+  else{
+    $scope.admin_dsw.splice(i,1);
+  }
+}
+  $scope.forward_dsw=function(){
+    if($scope.admin_dsw.length==0){
+      return;
+    }
+    var str="";
+    $scope.admin_dsw.forEach(function(e){
+      str=str+e+',';
+    })
+    str=str.slice(0, -1);
+    obj={'eventFor': $scope.id, 'roles': str}
+    $http.post('/dsw/forward', obj).success(function(res){
+      if(res){
+        window.location.href="/home";
+      }
+    })
+  }
+
+  $scope.admin=[];
+  $scope.manage=function(admin){
+  var i=$scope.admin.indexOf(admin);
+  if(i==-1){
+    $scope.admin.push(admin);
+  }
+  else{
+    $scope.admin.splice(i,1);
+  }
+}
+  $scope.forward=function(){
+    if($scope.admin.length==0){
+      return;
+    }
+    var str="";
+    $scope.admin.forEach(function(e){
+      str=str+e+',';
+    })
+    str=str.slice(0, -1);
+    obj={'eventId': $scope.id, 'roles': str}
+    $http.post('/dsw/forward', obj).success(function(res){
+      if(res){
+        window.location.href="/home";
+      }
+    })
+  }
+});
+
 app.filter("clubOrChapterFilter", function(){
   return function(data, clubOrChapter){
       var list=[];

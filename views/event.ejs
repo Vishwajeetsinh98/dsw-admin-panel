@@ -18,9 +18,9 @@
         background:white;
     }
 </style>
-<body onload="parseDate('<%=event.startDate%>', '<%=event.endDate%>')">
-<div class="container-fluid">
-    <div class="row">
+<body onload="parseDate('<%=event.startDate%>', '<%=event.endDate%>')" id="event-body">
+<div class="container-fluid" ng-app="app" ng-controller="eventController">
+    <div class="row" ng-init="id='<%=event._id%>'">
         <h1 align="center">Admin Panel</h1>
         <h4 align="center">Event Description</h4>
         <h4 class="logout"><a href="/logout">Logout</a></h4>
@@ -113,27 +113,153 @@
                   </div>
               </div>
               <hr>
+              <%if((role=='fc' && !event.fcApproval)||((role=='dsw' || role=='clubAdmin' || role=='chapterAdmin') && !event.approvalStatus)){%>
               <div class="admin-rating">
-                <span>Admin Review</span>
-                <br>
-                <form action="#" method="POST">
-                  Rating:
-                  <div class="radio">
-                    <label><input type="radio" name="rating" required>Pass</label>
+                <span>Review Event</span>
+                <br><br>
+                <div class="row">
+
+                  <%if(role=='dsw'){%>
+                  <div class="col-md-6">
+                    <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                          1) Approve and Forward to respective Admin</a>
+                        </h4>
+                      </div>
+                      <div id="collapse1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                          <form action="/dsw/approve" method="POST">
+                            <div class="radio">
+                              <label><input type="radio" name="accept" value="true" required>Approve</label>
+                            </div>
+                            <input type="hidden" name="eventFor" value="<%=event._id%>">
+                            <div class="radio">
+                              <label><input type="radio" name="accept" value="false" required>Reject</label>
+                            </div>
+                            <button class="submit btn btn-primary" type="submit">Submit</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                          2) Approve Overall Without Forwarding</a>
+                        </h4>
+                      </div>
+                      <div id="collapse2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                          <form action="/dsw/approveoverall" method="POST">
+                            <div class="radio">
+                              <label><input type="radio" name="accept"value="true" required>Approve</label>
+                            </div>
+                            <input type="hidden" name="eventFor" value="<%=event._id%>">
+                            <div class="radio">
+                              <label><input type="radio" name="accept" value="false" required>Reject</label>
+                            </div>
+                            <button class="submit btn btn-primary" type="submit">Submit</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                          3) Forward to Respective Admin without Rating</a>
+                        </h4>
+                      </div>
+                      <div id="collapse3" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Forward To:
+                            <div class="checkbox">
+                              <label><input type="checkbox" ng-click="manage_dsw('superAdmin')">Super Admin</label>
+                            </div>
+                            <div class="checkbox">
+                              <label><input type="checkbox" ng-click="manage_dsw('<%=event.conductingBodyType%>Admin')">Admin</label>
+                            </div>
+                            <button class="submit btn btn-primary" ng-click="forward_dsw()">Submit</button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="radio">
-                    <label><input type="radio" name="rating" required>Reject</label>
                   </div>
-                  <button class="submit btn btn-primary" type="submit">Submit</button>
-                </form>
+                  <%}else if(role=='fc'){%>
+                  <div class="col-md-6">
+                    <form action="/fc/approve" method="POST">
+                      <div class="radio">
+                        <label><input type="radio" name="accept" value="true" required>Approve</label>
+                      </div>
+                      <input type="hidden" name="eventFor" value="<%=event._id%>">
+                      <div class="radio">
+                        <label><input type="radio" name="accept" value="false" required>Reject</label>
+                      </div>
+                      <button class="submit btn btn-primary" type="submit">Submit</button>
+                    </form>
+                  </div>
+                  <%} else{%>
+                  <div class="col-md-6">
+                    <div class="panel-group" id="accordion">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                            1) Approve</a>
+                          </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse">
+                          <div class="panel-body">
+                            <form action="/admin/approve" method="POST">
+                              <div class="radio">
+                                <label><input type="radio" name="accept" value="true" required>Approve</label>
+                              </div>
+                              <input type="hidden" name="eventFor" value="<%=event._id%>">
+                              <div class="radio">
+                                <label><input type="radio" name="accept" value="false" required>Reject</label>
+                              </div>
+                              <button class="submit btn btn-primary" type="submit">Submit</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                            2) Forward without Rating</a>
+                          </h4>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse">
+                          <div class="panel-body">
+                              Forward To:
+                              <div class="checkbox">
+                                <label><input type="checkbox" ng-click="manage('superAdmin')">Super Admin</label>
+                              </div>
+                              <div class="checkbox">
+                                <label><input type="checkbox" ng-click="manage('admin')">Admin</label>
+                              </div>
+                              <button class="submit btn btn-primary" ng-click="forward()">Submit</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <%}%>
+                </div>
+
               </div>
+              <%}%>
             </div>
         </div>
         </div>
     </div>
 </div>
-<br>
-<br>
+<br><br>
+<br><br>
 <script>
   function parseDate(sDate, eDate){
     sDate=sDate.substr(0,15);
