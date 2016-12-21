@@ -34,43 +34,43 @@
                 <br>
                 <br>
                 <div class="container-fluid">
-    <div class="row">
-        <table class="table table-bordered event-list-table">
-        <thead>
-            <tr>
-            <th>#</th>
-            <th>Event Name</th>
-            <th>Chapter/Club Name</th>
-            <th>Event Date</th>
-            <th>Reviewed Status</th>
-            <th>Faculty Coordinator Apporval</th>
-            <th>Final Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="event in events | filter:eventSearch">
-            <th scope="row">{{$index + 1}}</th>
-            <td><a ng-href="/events/{{event._id}}">{{event.eventName}}</a></td>
-            <td>{{event.clubOrChapter}}</td>
-            <td>{{formatDate(event.startDate)}}</td>
-            <td>Reviewed By:
-                <ul ng-repeat="user in event.approvals">
-                    <li ng-if="user.approved">
-                        {{user.by}}
-                    </li>
-                </ul>
-            </td>
-            <td ng-class="{'pass':event.fcApproval, 'reject':!event.fcApproval}">
-                <span ng-if="event.fcApproval">pass</span><span ng-if="!event.fcApproval">Reject</span>
-            </td>
-            <td ng-class="{'pass':event.approvalStatus, 'reject':!event.approvalStatus}">
-                <span ng-if="event.approvalStatus">pass</span><span ng-if="!event.approvalStatus">Reject</span>
-            </td>
-            </tr>
-        </tbody>
-        </table>
-    </div>
-</div>
+                  <div class="row">
+                      <table class="table table-bordered event-list-table">
+                      <thead>
+                          <tr>
+                          <th>#</th>
+                          <th>Event Name</th>
+                          <th>Chapter/Club Name</th>
+                          <th>Event Date</th>
+                          <th>Reviewed Status</th>
+                          <th>Faculty Coordinator Apporval</th>
+                          <th>Final Status</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr ng-repeat="event in events | filter:eventSearch">
+                          <th scope="row">{{$index + 1}}</th>
+                          <td><a ng-href="/events/{{event._id}}">{{event.eventName}}</a></td>
+                          <td>{{event.clubOrChapter}}</td>
+                          <td>{{formatDate(event.startDate)}}</td>
+                          <td>Reviewed By:
+                              <ul ng-repeat="user in event.approvals">
+                                  <li ng-if="user.approved">
+                                      {{user.by}}
+                                  </li>
+                              </ul>
+                          </td>
+                          <td ng-class="{'pass':event.fcApproval, 'reject':!event.fcApproval, 'pending': (!event.fcApproval && event.approvals.length==0)}">
+                              <span ng-if="event.fcApproval">Approved</span><div ng-if="!event.fcApproval"><span ng-if="event.approvals.length==0">Pending</span><span ng-if="event.approvals.length>0">Reject</span></div>
+                          </td>
+                          <td ng-class="{'pass':event.approvalStatus, 'reject':!event.approvalStatus, 'pending': (!event.approvalStatus && event.approvals.length==0)}">
+                              <span ng-if="event.approvalStatus">Approved</span><div ng-if="!event.approvalStatus"><span ng-if="event.approvals.length==0">Pending</span><span ng-if="event.approvals.length>0">Reject</span></div>
+                          </td>
+                          </tr>
+                      </tbody>
+                      </table>
+                  </div>
+              </div>
             </div>
         </div>
         </div>

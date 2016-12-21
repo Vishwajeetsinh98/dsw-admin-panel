@@ -108,11 +108,11 @@
                                   </li>
                               </ul>
                           </td>
-                          <td ng-class="{'pass':event.fcApproval, 'reject':!event.fcApproval}">
-                              <span ng-if="event.fcApproval">pass</span><span ng-if="!event.fcApproval">Reject</span>
+                          <td ng-class="{'pass':event.fcApproval, 'reject':!event.fcApproval, 'pending': (!event.fcApproval && event.approvals.length==0)}">
+                              <span ng-if="event.fcApproval">Approved</span><div ng-if="!event.fcApproval"><span ng-if="event.approvals.length==0">Pending</span><span ng-if="event.approvals.length>0">Reject</span></div>
                           </td>
-                          <td ng-class="{'pass':event.approvalStatus, 'reject':!event.approvalStatus}">
-                              <span ng-if="event.approvalStatus">pass</span><span ng-if="!event.approvalStatus">Reject</span>
+                          <td ng-class="{'pass':event.approvalStatus, 'reject':!event.approvalStatus, 'pending': (!event.approvalStatus && event.approvals.length==0)}">
+                              <span ng-if="event.approvalStatus">Approved</span><div ng-if="!event.approvalStatus"><span ng-if="event.approvals.length==0">Pending</span><span ng-if="event.approvals.length>0">Reject</span></div>
                           </td>
                           </tr>
                       </tbody>
