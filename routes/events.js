@@ -20,7 +20,7 @@ router.get('/', function(req, res, next){
   res.render('eventsList');
 });
 
-router.use(util.checkUserType(['fc', 'dsw', 'clubAdmin', 'chapterAdmin', 'superAdmin']))
+router.use(util.checkUserType(['dsw', 'clubAdmin', 'chapterAdmin', 'superAdmin']))
 
 router.get('/all', function(req, res, next){
   Event.find({})
