@@ -7,7 +7,8 @@ var Event = require(require('path').join(__dirname, '../models/event.js'));
 router.use(util.checkUserType(['clubAdmin', 'chapterAdmin']));
 
 router.post('/approve', function(req, res, next){
-    Event.findByIdAndUpdate(req.body.eventFor, {$set: {approvalStatus: (req.body.accept === 'true')}}, function(err){
+    console.log(req.body.accept);
+    Event.findByIdAndUpdate(req.body.eventFor, {$set: {approvalStatus: (req.body.accept === 'true')}, $push:  {approvals: {by: req.session.user.role, approved: req.body.accept, when: new Date()}}}, function(err){
         if(err){
             next(util.sendError(500, 'Cant Approve / Reject'));
         } else{
@@ -16,7 +17,7 @@ router.post('/approve', function(req, res, next){
                     next(util.sendError(500, 'Cant Remove From Pending of Other Users'))
                 } else{
                     req.session.user.events = req.session.user.events.indexOf(req.body.eventFor) == 0 ? req.session.user.events.splice(req.session.user.events.indexOf(req.body.eventFor), 0) : req.session.user.events.splice(req.session.user.events.indexOf(req.body.eventFor), 1);
-                    req.session['message'] = 'Event Has Been Approved';
+                    req.session['message'] = 'Event Has Been ' + (req.body.accept == 'true' ? 'Accepted' : 'Rejected');
                     res.redirect('/home');
                 }
             })
