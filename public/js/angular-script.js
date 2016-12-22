@@ -172,7 +172,14 @@ app.controller("eventController", function($scope,$http,$filter,$location){
     obj={'eventId': $scope.id, 'roles': str}
     $http.post('/dsw/forward', obj).success(function(res){
       if(res){
-        window.location.href="/home";
+        vex.dialog.confirm({
+          message: 'Forwarded Successfully\nGoto Home?',
+          callback: function(value){
+            if(value){
+              window.location.href="/home";
+            }
+          }
+        })
       }
     })
   }

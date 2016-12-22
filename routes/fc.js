@@ -29,7 +29,7 @@ router.post('/approve', function(req, res, next){
                     }
                 })
             }
-            req.session.message = req.body.accept ? 'Approved Successfully' : 'Rejected';
+            req.session['message'] = req.body.accept ? 'Approved Successfully' : 'Rejected';
             res.redirect('/home');
         }
     })

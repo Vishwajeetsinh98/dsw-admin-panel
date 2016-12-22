@@ -20,7 +20,7 @@ router.post('/login', passport.authenticate('local'), function(req, res, next){
 
 router.get('/home', function(req, res, next){
   var message = req.session.message;
-  req.session.message = null;
+  req.session['message'] = null;
   res.render('home', {message: message, options: util.getOptions(req.session.user.role)});
 })
 

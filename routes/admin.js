@@ -16,7 +16,7 @@ router.post('/approve', function(req, res, next){
                     next(util.sendError(500, 'Cant Remove From Pending of Other Users'))
                 } else{
                     req.session.user.events = req.session.user.events.indexOf(req.body.eventFor) == 0 ? req.session.user.events.splice(req.session.user.events.indexOf(req.body.eventFor), 0) : req.session.user.events.splice(req.session.user.events.indexOf(req.body.eventFor), 1);
-                    req.session.message = 'Event Has Been Approved';
+                    req.session['message'] = 'Event Has Been Approved';
                     res.redirect('/home');
                 }
             })
@@ -30,7 +30,7 @@ router.post('/forward', function(req, res, next){
             console.log(err);
             next(util.sendError(500, 'Can\'t Forward Event'));
         } else{
-            req.session.message = 'Forwarded';
+            req.session['message'] = 'Forwarded';
             res.redirect('/home');
         }
     })
@@ -53,7 +53,7 @@ router.post('/editevent', function(req, res, next){
                     console.log(err)
                     next(util.sendError(500, 'Cant Send To DSW'));
                 } else{
-                    req.session.message = 'Editted. Sent To DSW For Rechecking';
+                    req.session['message'] = 'Editted. Sent To DSW For Rechecking';
                     res.redirect('/home');
                 }
             })
