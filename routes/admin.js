@@ -7,8 +7,8 @@ var Event = require(require('path').join(__dirname, '../models/event.js'));
 router.use(util.checkUserType(['clubAdmin', 'chapterAdmin']));
 
 router.post('/approve', function(req, res, next){
-    console.log(req.body.accept);
-    Event.findByIdAndUpdate(req.body.eventFor, {$set: {approvalStatus: (req.body.accept === 'true')}, $push:  {approvals: {by: req.session.user.role, approved: req.body.accept, when: new Date()}}}, function(err){
+    var eventApproval = req.body.accept === 'true' ? 'approved' : 'rejected';
+    Event.findByIdAndUpdate(req.body.eventFor, {$set: {approvalStatus: eventApproval}, $push:  {approvals: {by: req.session.user.role, approved: req.body.accept, when: new Date()}}}, function(err){
         if(err){
             next(util.sendError(500, 'Cant Approve / Reject'));
         } else{

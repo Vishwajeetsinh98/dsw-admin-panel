@@ -46,7 +46,11 @@ var Event = new mongoose.Schema({
         approved: Boolean,
         when: Date
     }],
-    approvalStatus: Boolean
+    approvalStatus: {
+      type: String,
+      default: 'pending',
+      enum: ['pending', 'approved', 'rejected']
+    }
 });
 
 module.exports = mongoose.model('Event', Event);

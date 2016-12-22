@@ -98,7 +98,7 @@ router.post('/addevent', function(req, res, next){
     other: req.body.other,
     approvals: [],
     fcApproval: false,
-    approvalStatus: false
+    approvalStatus: 'pending'
   });
   //Populate The Chapter Field
   User.findOne({name: newEvent.clubOrChapter, role: 'chapter'}, function(err, chapter){

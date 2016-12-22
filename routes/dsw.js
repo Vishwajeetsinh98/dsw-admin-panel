@@ -53,7 +53,8 @@ router.post('/forward', function(req, res, next){
 })
 
 router.post('/approveoverall', function(req, res, next){
-    Event.findByIdAndUpdate(req.body.eventFor, {$set: {approvalStatus: (req.body.accept === 'true')}}, function(err){
+    var eventApproval = req.body.accept === 'true' ? 'approved' : 'rejected';
+    Event.findByIdAndUpdate(req.body.eventFor, {$set: {approvalStatus: eventApproval}}, function(err){
         if(err){
             next(util.sendError(500, 'Cant Approve / Reject Event'))
         } else{
