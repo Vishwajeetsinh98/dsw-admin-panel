@@ -19,10 +19,10 @@ app.controller("listController", function($scope,$http){
     }
     approvals.forEach(function(e){
       if(e.by==role){
-        return true;
+        return false;
       }
     })
-    return false;
+    return true;
   }
 
   $scope.getEvents=function(data){

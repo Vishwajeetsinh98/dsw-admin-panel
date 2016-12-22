@@ -66,6 +66,9 @@
                           <label><input type="checkbox" ng-click="manage_approval(true)">Approved</label>
                         </div>
                         <div class="checkbox">
+                          <label><input type="checkbox" ng-click="manage_approval(false)">Pending</label>
+                        </div>
+                        <div class="checkbox">
                           <label><input type="checkbox" ng-click="manage_approval(false)">Rejected</label>
                         </div>
                       </div>
@@ -146,10 +149,10 @@ app.controller("allEventsController", function($scope,$http){
       }
       approvals.forEach(function(e){
         if(e.by==role){
-          return true;
+          return false;
         }
       })
-      return false;
+      return true;
     }
 
     $scope.clubOrChapter=[];
