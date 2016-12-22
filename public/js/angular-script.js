@@ -13,6 +13,18 @@ app.controller("listController", function($scope,$http){
     return Fdate;
   }
 
+  $scope.checkPending=function(approvals,role){
+    if(approvals.length==0){
+      return true;
+    }
+    approvals.forEach(function(e){
+      if(e.by==role){
+        return true;
+      }
+    })
+    return false;
+  }
+
   $scope.getEvents=function(data){
     $http.get('/events/list').success(function(data){
       $scope.events=data.data;

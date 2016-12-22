@@ -36,7 +36,7 @@ router.get('/:eventId', function(req, res, next){
       console.log(err);
       next(util.sendError(500, 'Cant Get Event'));
     }
-    res.render('event', {event: event, role: req.session.user.role});
+    res.render('event', {event: event, role: req.session.user.role, canRate: (req.session.user.events.lastIndexOf(req.params.eventId) != -1)});
   });
 });
 

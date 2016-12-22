@@ -38,7 +38,6 @@
                 <br>
                 <div class="container-fluid">
                   <div class="row" ng-init='initEvents(<%-JSON.stringify(event)%>,"<%=role%>");'>
-
                     <form name="editEventForm">
                       <table class="table table-bordered table-striped event-list-table">
                       <tbody>
@@ -218,6 +217,7 @@
                   </div>
               </div>
               <hr>
+              <%if(canRate){%>
               <%if((role=='fc' && !event.fcApproval)||((role=='dsw' || role=='clubAdmin' || role=='chapterAdmin') && !event.approvalStatus)){%>
               <div class="admin-rating">
                 <span>Review Event</span>
@@ -357,6 +357,7 @@
                 </div>
 
               </div>
+              <%}%>
               <%}%>
             </div>
         </div>
