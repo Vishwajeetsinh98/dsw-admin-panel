@@ -47,8 +47,7 @@ router.post('/forward', function(req, res, next){
             console.log(err);
             next(util.sendError(500, 'Can\'t Forward Event'));
         } else{
-          req.session['message'] = 'Forwarded';
-          res.redirect('/home');
+          res.json({success: true});
         }
     })
 })
