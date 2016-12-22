@@ -6,7 +6,7 @@ var Event = require(require('path').join(__dirname, '../models/event.js'));
 
 router.use(util.checkUserType(['fc']));
 
-router.post('/accept', function(req, res, next){
+router.post('/approve', function(req, res, next){
     var query = {fcApproval: req.body.accept, $push: {approvals: {by: "fc", approved: req.body.accept, when: new Date()}}};
     Event.findByIdAndUpdate(req.body.eventId, query, function(err, event){
         if(err){
@@ -29,7 +29,8 @@ router.post('/accept', function(req, res, next){
                     }
                 })
             }
-            res.send(req.body.accept ? 'Approved Successfully' : 'Rejected');
+            req.session.message = req.body.accept ? 'Approved Successfully' : 'Rejected';
+            res.redirect('/home');
         }
     })
 })

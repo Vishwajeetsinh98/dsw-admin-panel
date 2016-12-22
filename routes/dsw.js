@@ -20,7 +20,8 @@ router.post('/approve', function(req, res, next){
                     } else{
                         User.update({role: {$in: ['dsw', 'superAdmin']}}, {$pull: {'events': req.body.eventFor}, $push: {approvedEvents: req.body.eventFor}}, function(err){
                             req.session.user.events = req.session.user.events.indexOf(req.body.eventFor) == 0 ? req.session.user.events.splice(req.session.user.events.indexOf(req.body.eventFor), 0) : req.session.user.events.splice(req.session.user.events.indexOf(req.body.eventFor), 1);
-                            res.send('Forwarded To Admins');
+                            res.session.message = 'Forwarded To Admins';
+                            res.redirect('/home');
                         })
                     }
                 })
@@ -31,7 +32,8 @@ router.post('/approve', function(req, res, next){
                         next(util.sendError(500, 'Cant Reject Event'));
                     } else{
                         req.session.user.events = req.session.user.events.indexOf(req.body.eventFor) == 0 ? req.session.user.events.splice(req.session.user.events.indexOf(req.body.eventFor), 0) : req.session.user.events.splice(req.session.user.events.indexOf(req.body.eventFor), 1);
-                        res.send('Removed Successfully');
+                        res.session.message = 'Removed Successfully';
+                        res.redirect('/home');
                     }
                 })
             }
@@ -45,7 +47,8 @@ router.post('/forward', function(req, res, next){
             console.log(err);
             next(util.sendError(500, 'Can\'t Forward Event'));
         } else{
-            res.send('Forwarded');
+          res.session.message = 'Forwarded';
+          res.redirect('/home');
         }
     })
 })
@@ -59,7 +62,8 @@ router.post('/approveoverall', function(req, res, next){
                 if(err){
                     next(util.sendError(500,  'Cant Communicate To Admins'))
                 } else{
-                    res.send(req.body.accept === 'true' ? 'Approved Successfully' : 'Rejected Successfully');
+                    req.session.message = req.body.accept === 'true' ? 'Approved Successfully' : 'Rejected Successfully';
+                    res.redirect('/home');
                 }
             })
         }
@@ -82,7 +86,8 @@ router.post('/editevent', function(req, res, next){
                 if(err){
                     next(util.sendError(500, 'Cant Communicate Changes To Admins'))
                 } else{
-                    res.send('Editted');
+                  req.session.message = 'Editted';
+                  res.redirect('/home');
                 }
             })
         }
