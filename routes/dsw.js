@@ -20,7 +20,7 @@ router.post('/approve', function(req, res, next){
                     } else{
                         User.update({role: {$in: ['dsw', 'superAdmin']}}, {$pull: {'events': req.body.eventFor}, $push: {approvedEvents: req.body.eventFor}}, function(err){
                             req.session.user.events = req.session.user.events.indexOf(req.body.eventFor) == 0 ? req.session.user.events.splice(req.session.user.events.indexOf(req.body.eventFor), 0) : req.session.user.events.splice(req.session.user.events.indexOf(req.body.eventFor), 1);
-                            res.session.message = 'Forwarded To Admins';
+                            req.session.message = 'Forwarded To Admins';
                             res.redirect('/home');
                         })
                     }
@@ -32,7 +32,7 @@ router.post('/approve', function(req, res, next){
                         next(util.sendError(500, 'Cant Reject Event'));
                     } else{
                         req.session.user.events = req.session.user.events.indexOf(req.body.eventFor) == 0 ? req.session.user.events.splice(req.session.user.events.indexOf(req.body.eventFor), 0) : req.session.user.events.splice(req.session.user.events.indexOf(req.body.eventFor), 1);
-                        res.session.message = 'Removed Successfully';
+                        req.session.message = 'Removed Successfully';
                         res.redirect('/home');
                     }
                 })
@@ -47,7 +47,7 @@ router.post('/forward', function(req, res, next){
             console.log(err);
             next(util.sendError(500, 'Can\'t Forward Event'));
         } else{
-          res.session.message = 'Forwarded';
+          req.session.message = 'Forwarded';
           res.redirect('/home');
         }
     })
