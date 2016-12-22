@@ -62,8 +62,8 @@
                           <td ng-class="{'pass':event.fcApproval, 'reject':(!event.fcApproval && !checkPending(event.approvals, 'fc')), 'pending': (!event.fcApproval && checkPending(event.approvals, 'fc'))}">
                               <span ng-if="event.fcApproval">Approved</span><div ng-if="!event.fcApproval"><span ng-if="checkPending(event.approvals, 'fc')">Pending</span><span ng-if="!checkPending(event.approvals, 'fc')">Reject</span></div>
                           </td>
-                          <td ng-class="{'pass':event.approvalStatus, 'reject':(!event.approvalStatus && !checkPending(event.approvals, 'dsw')), 'pending': (!event.approvalStatus && checkPending(event.approvals, 'dsw'))}">
-                              <span ng-if="event.approvalStatus">Approved</span><div ng-if="!event.approvalStatus"><span ng-if="checkPending(event.approvals, 'dsw')">Pending</span><span ng-if="!checkPending(event.approvals, 'dsw')">Reject</span></div>
+                          <td ng-class="{'pass':event.approvalStatus=='approved', 'reject':event.approvalStatus=='rejected', 'pending': event.approvalStatus=='pending'}">
+                              <span ng-if="event.approvalStatus=='approved'">Approved</span><span ng-if="event.approvalStatus=='pending'">Pending</span><span ng-if="event.approvalStatus=='rejected'">Reject</span>
                           </td>
                           </tr>
                       </tbody>

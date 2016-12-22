@@ -387,7 +387,7 @@
 
               <div class="form-group" ng-class="{'has-success': !eventForm.facultyCoordinatorEmail.$invalid && eventForm.facultyCoordinatorEmail.$dirty, 'has-error': (eventForm.facultyCoordinatorEmail.$invalid || facultyCoordinatorEmail=='' ) && eventForm.facultyCoordinatorEmail.$dirty}">
                   Email
-                <input type="text" class="form-control" ng-model="facultyCoordinatorEmail" name="facultyCoordinatorEmail" ng-pattern="vitEmailRegEx" placeholder="Only VIT e-Mail Id" required>
+                <input type="email" class="form-control" ng-model="facultyCoordinatorEmail" name="facultyCoordinatorEmail" placeholder="Only VIT e-Mail Id" required>
               </div>
             </div>
           </div>

@@ -19,10 +19,10 @@ app.controller("listController", function($scope,$http){
     }
     approvals.forEach(function(e){
       if(e.by==role){
-        return false;
+        return true;
       }
     })
-    return true;
+    return false;
   }
 
   $scope.getEvents=function(data){
@@ -35,9 +35,30 @@ app.controller("listController", function($scope,$http){
 app.controller("eventController", function($scope,$http,$filter,$location){
   $scope.edit=false;
 
+  $scope.good=function(str){
+    if(str=='chapter'){
+      return 'Chapter';
+    }else{
+      return 'Club';
+    }
+  }
+
+  $scope.checkPending=function(approvals,role){
+    if(approvals.length==0){
+      return true;
+    }
+    approvals.forEach(function(e){
+      if(e.by==role){
+        return true;
+      }
+    })
+    return false;
+  }
+
   $scope.initEvents=function(evt,role){
     $scope.role=role
     $scope.id=evt._id;
+    $scope.approvals=evt.approvals;
     $scope.startDate_model=$filter('date')(evt.startDate, 'yyyy-MM-dd');
     $scope.endDate_model=$filter('date')(evt.endDate, 'yyyy-MM-dd');
     $scope.startTime_model=$filter('date')(evt.startTime, 'HH:mm');

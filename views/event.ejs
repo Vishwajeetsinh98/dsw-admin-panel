@@ -218,8 +218,8 @@
               </div>
               <hr>
               <%if(canRate){%>
-              <%if((role=='fc' && !event.fcApproval)||((role=='dsw' || role=='clubAdmin' || role=='chapterAdmin') && !event.approvalStatus)){%>
-              <div class="admin-rating">
+              <%if(event.approvalStatus=='pending'){%>
+              <div ng-if="(role=='fc' && checkPending(approvals,'fc') || role!='fc')" class="admin-rating">
                 <span>Review Event</span>
                 <br><br>
                 <div class="row">
@@ -231,7 +231,7 @@
                       <div class="panel-heading">
                         <h4 class="panel-title">
                           <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                          1) Approve and Forward to respective Admin</a>
+                          1) Review and Forward to {{good('<%=event.conductingBodyType%>')}} Admin</a>
                         </h4>
                       </div>
                       <div id="collapse1" class="panel-collapse collapse">
@@ -253,7 +253,7 @@
                       <div class="panel-heading">
                         <h4 class="panel-title">
                           <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                          2) Approve Overall Without Forwarding</a>
+                          2) Review Overall Without Forwarding</a>
                         </h4>
                       </div>
                       <div id="collapse2" class="panel-collapse collapse">
@@ -275,7 +275,7 @@
                       <div class="panel-heading">
                         <h4 class="panel-title">
                           <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                          3) Forward to Respective Admin without Rating</a>
+                          3) Forward Without Rating</a>
                         </h4>
                       </div>
                       <div id="collapse3" class="panel-collapse collapse">
@@ -285,7 +285,7 @@
                               <label><input type="checkbox" ng-click="manage_dsw('superAdmin')">Super Admin</label>
                             </div>
                             <div class="checkbox">
-                              <label><input type="checkbox" ng-click="manage_dsw('<%=event.conductingBodyType%>Admin')"><%=event.conductingBodyType%> Admin</label>
+                              <label><input type="checkbox" ng-click="manage_dsw('<%=event.conductingBodyType%>Admin')">{{good('<%=event.conductingBodyType%>')}} Admin</label>
                             </div>
                             <button class="submit btn btn-primary" ng-click="forward_dsw()">Submit</button>
                         </div>
@@ -313,7 +313,7 @@
                         <div class="panel-heading">
                           <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                            1) Approve</a>
+                            1) Review </a>
                           </h4>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse">
@@ -335,7 +335,7 @@
                         <div class="panel-heading">
                           <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                            2) Forward without Rating</a>
+                            2) Forward Without Review</a>
                           </h4>
                         </div>
                         <div id="collapse3" class="panel-collapse collapse">
