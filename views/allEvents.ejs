@@ -55,6 +55,9 @@
                           <label><input type="checkbox" ng-click="manage_faApproval(true)">Approved</label>
                         </div>
                         <div class="checkbox">
+                          <label><input type="checkbox" ng-click="manage_faApproval(false,'pending')">Pending</label>
+                        </div>
+                        <div class="checkbox">
                           <label><input type="checkbox" ng-click="manage_faApproval(false)">Rejected</label>
                         </div>
                       </div>
@@ -66,7 +69,7 @@
                           <label><input type="checkbox" ng-click="manage_approval(true)">Approved</label>
                         </div>
                         <div class="checkbox">
-                          <label><input type="checkbox" ng-click="manage_approval(false)">Pending</label>
+                          <label><input type="checkbox" ng-click="manage_approval(false,'pending')">Pending</label>
                         </div>
                         <div class="checkbox">
                           <label><input type="checkbox" ng-click="manage_approval(false)">Rejected</label>
@@ -166,7 +169,10 @@ app.controller("allEventsController", function($scope,$http){
     }
   }
   $scope.faApproval=[];
-  $scope.manage_faApproval=function(faApproval){
+  $scope.manage_faApproval=function(faApproval,pending){
+    if(!faApproval && pending=='pending'){
+      faApproval=pending;
+    }
   var i=$scope.faApproval.indexOf(faApproval);
   if(i==-1){
     $scope.faApproval.push(faApproval);
@@ -176,7 +182,10 @@ app.controller("allEventsController", function($scope,$http){
     }
   }
   $scope.approval=[];
-  $scope.manage_approval=function(approval){
+  $scope.manage_approval=function(approval, pending){
+  if(!approval && pending=='pending'){
+    approval=pending;
+  }
   var i=$scope.approval.indexOf(approval);
   if(i==-1){
     $scope.approval.push(approval);

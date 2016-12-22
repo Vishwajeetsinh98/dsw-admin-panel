@@ -248,10 +248,33 @@ app.filter("faApprovalFilter", function(){
         list=data;
         return list;
       }
+      if(faApproval.indexOf('pending')!=-1){
+        data.forEach(function(e){
+          var flag=true;
+          if(!e.faApproval){
+            e.approvals.forEach(function(a){
+              if(a.by=='fc'){
+                flag=false;
+              }
+            })
+            if(flag){
+              list.push(e);
+            }
+          }
+        })
+      }
     data.forEach(function(e){
       var i=faApproval.indexOf(e.fcApproval);
       if(i!=-1){
-        list.push(e);
+        if(!e.fcApproval){
+          e.approvals.forEach(function(a){
+            if(a.by=='fc'){
+              list.push(e);
+            }
+          })
+        }else{
+          list.push(e);
+        }
       }
     })
     return list;
@@ -265,10 +288,33 @@ app.filter("faApprovalFilter", function(){
           list=data;
           return list;
         }
+        if(approval.indexOf('pending')!=-1){
+          data.forEach(function(e){
+            var flag=true;
+            if(!e.approvalStatus){
+              e.approvals.forEach(function(a){
+                if(a.by=='dsw'){
+                  flag=false;
+                }
+              })
+              if(flag){
+                list.push(e);
+              }
+            }
+          })
+        }
       data.forEach(function(e){
         var i=approval.indexOf(e.approvalStatus);
         if(i!=-1){
-          list.push(e);
+          if(!e.approvalStatus){
+            e.approvals.forEach(function(a){
+              if(a.by=='dsw'){
+                list.push(e);
+              }
+            })
+          }else{
+            list.push(e);
+          }
         }
       })
       return list;
