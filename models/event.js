@@ -40,7 +40,11 @@ var Event = new mongoose.Schema({
     ceoRequest: String,
     proRequest: String,
     other: String,
-    fcApproval: Boolean,
+    fcApproval: {
+      type: String,
+      default: 'pending',
+      enum: ['pending', 'approved', 'rejected']
+    },
     approvals: [{
         by: String,
         approved: Boolean,
