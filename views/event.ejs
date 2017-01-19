@@ -72,7 +72,7 @@
                           <tr>
                           <td>Start Time</td>
                           <td>
-                            <span ng-show="!edit" id="time"></span>
+                            <span ng-show="!edit">{{startTime_model}}</span>
                             <span ng-show="edit">
                               <input type="time" class="form-control" name="startTime" ng-model="startTime_model" value="{{startTime_model}}">
                             </span>
@@ -218,7 +218,7 @@
               </div>
               <hr>
               <%if(canRate){%>
-              <%if(event.approvalStatus=='pending'){%>
+              <%if((event.approvalStatus=='pending' && role!='fc') || (event.fcApproval=='pending' && role=='fc')){%>
               <div ng-if="(role=='fc' && checkPending(approvals,'fc') || role!='fc')" class="admin-rating">
                 <span>Review Event</span>
                 <br><br>
@@ -372,10 +372,6 @@
     eDate=eDate.substr(0,15);
     var date=sDate+" -- "+eDate;
     $("#date").html(date);
-  }
-  function parseTime(time){
-    var t=(new Date(time)).toLocaleTimeString();
-    $("#time").html(t);
   }
   vex.defaultOptions.className = 'vex-theme-top';
 </script>

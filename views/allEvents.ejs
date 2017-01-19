@@ -20,12 +20,15 @@
 </style>
 
 <body ng-app="app" ng-controller="allEventsController">
-<div class="container-fluid">
+<div class="container-fluid" ng-init='init(<%-JSON.stringify(events)%>)'>
     <div class="row">
-        <h1 align="center">Admin Panel</h1>
-        <h4 align="center">List of Events</h4>
-        <h4 class="logout"><a href="/logout">Logout</a></h4>
-        <br><hr><br>
+        <div class="col-sm-8 col-sm-push-2 col-xs-12">
+          <h1 align="center">Admin Panel</h1>
+          <h4 align="center">List of Events</h4>
+          <h4 class="logout"><a href="/logout">Logout</a></h4>
+          <br><br>
+          <hr>
+        </div>
         <div class="container-fluid">
         <div class="row">
             <div class="col-sm-10 col-md-8 col-xs-10 col-xs-push-1 col-sm-push-1 col-md-push-2">
@@ -52,13 +55,13 @@
                       <div class="filter-section">
                         <span class="filter-title">Faculty Coordinator Approval</span>
                         <div class="checkbox">
-                          <label><input type="checkbox" ng-click="manage_faApproval(true)">Approved</label>
+                          <label><input type="checkbox" ng-click="manage_faApproval('approved')">Approved</label>
                         </div>
                         <div class="checkbox">
-                          <label><input type="checkbox" ng-click="manage_faApproval(false,'pending')">Pending</label>
+                          <label><input type="checkbox" ng-click="manage_faApproval('pending')">Pending</label>
                         </div>
                         <div class="checkbox">
-                          <label><input type="checkbox" ng-click="manage_faApproval(false)">Rejected</label>
+                          <label><input type="checkbox" ng-click="manage_faApproval('rejected')">Rejected</label>
                         </div>
                       </div>
                     </div>
@@ -66,13 +69,13 @@
                       <div class="filter-section">
                         <span class="filter-title">Final Approval</span>
                         <div class="checkbox">
-                          <label><input type="checkbox" ng-click="manage_approval(true)">Approved</label>
+                          <label><input type="checkbox" ng-click="manage_approval('approved')">Approved</label>
                         </div>
                         <div class="checkbox">
-                          <label><input type="checkbox" ng-click="manage_approval(false,'pending')">Pending</label>
+                          <label><input type="checkbox" ng-click="manage_approval('pending')">Pending</label>
                         </div>
                         <div class="checkbox">
-                          <label><input type="checkbox" ng-click="manage_approval(false)">Rejected</label>
+                          <label><input type="checkbox" ng-click="manage_approval('rejected')">Rejected</label>
                         </div>
                       </div>
                     </div>
@@ -108,14 +111,15 @@
                           <td>{{event.clubOrChapter}}</td>
                           <td>{{formatDate(event.startDate)}}</td>
                           <td>Reviewed By:
+                              <span ng-if="event.approvals.length==0"><br>--none--</span>
                               <ul id="reviewed-by" ng-repeat="user in event.approvals">
                                   <li ng-if="user.approved">
                                       {{user.by}}
                                   </li>
                               </ul>
                           </td>
-                          <td ng-class="{'pass':event.fcApproval, 'reject':(!event.fcApproval && !checkPending(event.approvals, 'fc')), 'pending':(!event.fcApproval && checkPending(event.approvals, 'fc'))}">
-                              <span ng-if="event.fcApproval">Approved</span><div ng-if="!event.fcApproval"><span ng-if="checkPending(event.approvals, 'fc')">Pending</span><span ng-if="!checkPending(event.approvals, 'fc')">Reject</span></div>
+                          <td ng-class="{'pass':event.fcApproval=='approved', 'reject':event.fcApproval=='rejected', 'pending':event.fcApproval=='pending'}">
+                              <span ng-if="event.fcApproval=='approved'">Approved</span><span ng-if="event.fcApproval=='pending'">Pending</span><span ng-if="event.fcApproval=='rejected'">Rejected</span>
                           </td>
                           <td ng-class="{'pass':event.approvalStatus=='approved', 'reject':event.approvalStatus=='rejected', 'pending': event.approvalStatus=='pending'}">
                               <span ng-if="event.approvalStatus=='approved'">Approved</span><span ng-if="event.approvalStatus=='pending'">Pending</span><span ng-if="event.approvalStatus=='rejected'">Reject</span>
@@ -135,66 +139,6 @@
     $("input[type=date][name$=date]").val("");
     $("#date").trigger("input");
   }
-</script>
-<script>
-app.controller("allEventsController", function($scope,$http){
-    $scope.events=<%-JSON.stringify(events)%>;
-    $scope.formatDate=function(iDate){
-      var date=new Date(iDate);
-      var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
-      var Fdate=date.getDate()+' '+months[date.getMonth()]+' '+date.getFullYear() ;
-      return Fdate;
-    }
-
-    $scope.checkPending=function(approvals,role){
-      if(approvals.length==0){
-        return true;
-      }
-      approvals.forEach(function(e){
-        if(e.by==role){
-          return false;
-        }
-      })
-      return true;
-    }
-
-    $scope.clubOrChapter=[];
-    $scope.manage_clubOrChapter=function(clubOrChapter){
-    var i=$scope.clubOrChapter.indexOf(clubOrChapter);
-    if(i==-1){
-      $scope.clubOrChapter.push(clubOrChapter);
-    }
-    else{
-      $scope.clubOrChapter.splice(i,1);
-    }
-  }
-  $scope.faApproval=[];
-  $scope.manage_faApproval=function(faApproval,pending){
-    if(!faApproval && pending=='pending'){
-      faApproval=pending;
-    }
-  var i=$scope.faApproval.indexOf(faApproval);
-  if(i==-1){
-    $scope.faApproval.push(faApproval);
-  }
-  else{
-      $scope.faApproval.splice(i,1);
-    }
-  }
-  $scope.approval=[];
-  $scope.manage_approval=function(approval, pending){
-  if(!approval && pending=='pending'){
-    approval=pending;
-  }
-  var i=$scope.approval.indexOf(approval);
-  if(i==-1){
-    $scope.approval.push(approval);
-  }
-  else{
-    $scope.approval.splice(i,1);
-  }
-}
-});
 </script>
 </body>
 </html>

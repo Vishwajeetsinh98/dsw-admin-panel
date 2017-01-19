@@ -32,6 +32,69 @@ app.controller("listController", function($scope,$http){
   }
 });
 
+
+app.controller("allEventsController", function($scope,$http){
+
+    $scope.init=function(events){
+        $scope.events=events;
+    }
+    $scope.formatDate=function(iDate){
+      var date=new Date(iDate);
+      var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+      var Fdate=date.getDate()+' '+months[date.getMonth()]+' '+date.getFullYear() ;
+      return Fdate;
+    }
+
+    $scope.checkPending=function(approvals,role){
+      if(approvals.length==0){
+        return true;
+      }
+      approvals.forEach(function(e){
+        if(e.by==role){
+          return false;
+        }
+      })
+      return true;
+    }
+
+    $scope.clubOrChapter=[];
+    $scope.manage_clubOrChapter=function(clubOrChapter){
+    var i=$scope.clubOrChapter.indexOf(clubOrChapter);
+    if(i==-1){
+      $scope.clubOrChapter.push(clubOrChapter);
+    }
+    else{
+      $scope.clubOrChapter.splice(i,1);
+    }
+  }
+  $scope.faApproval=[];
+  $scope.manage_faApproval=function(faApproval,pending){
+    if(!faApproval && pending=='pending'){
+      faApproval=pending;
+    }
+  var i=$scope.faApproval.indexOf(faApproval);
+  if(i==-1){
+    $scope.faApproval.push(faApproval);
+  }
+  else{
+      $scope.faApproval.splice(i,1);
+    }
+  }
+  $scope.approval=[];
+  $scope.manage_approval=function(approval, pending){
+  if(!approval && pending=='pending'){
+    approval=pending;
+  }
+  var i=$scope.approval.indexOf(approval);
+  if(i==-1){
+    $scope.approval.push(approval);
+  }
+  else{
+    $scope.approval.splice(i,1);
+  }
+}
+});
+
 app.controller("eventController", function($scope,$http,$filter,$location){
   $scope.edit=false;
 
@@ -264,38 +327,13 @@ app.filter("clubOrChapterFilter", function(){
 
 app.filter("faApprovalFilter", function(){
   return function(data, faApproval){
-      var list=[];
-      if(faApproval.length==0){
-        list=data;
-        return list;
-      }
-      if(faApproval.indexOf('pending')!=-1){
-        data.forEach(function(e){
-          var flag=true;
-          if(!e.faApproval){
-            e.approvals.forEach(function(a){
-              if(a.by=='fc'){
-                flag=false;
-              }
-            })
-            if(flag){
-              list.push(e);
-            }
-          }
-        })
-      }
+    if(faApproval.length==0){
+      return data;
+    }
+    var list=[]
     data.forEach(function(e){
-      var i=faApproval.indexOf(e.fcApproval);
-      if(i!=-1){
-        if(!e.fcApproval){
-          e.approvals.forEach(function(a){
-            if(a.by=='fc'){
-              list.push(e);
-            }
-          })
-        }else{
-          list.push(e);
-        }
+      if(faApproval.indexOf(e.fcApproval)!=-1){
+        list.push(e);
       }
     })
     return list;
@@ -304,38 +342,13 @@ app.filter("faApprovalFilter", function(){
 
   app.filter("approvalFilter", function(){
     return function(data, approval){
-        var list=[];
-        if(approval.length==0){
-          list=data;
-          return list;
-        }
-        if(approval.indexOf('pending')!=-1){
-          data.forEach(function(e){
-            var flag=true;
-            if(!e.approvalStatus){
-              e.approvals.forEach(function(a){
-                if(a.by=='dsw'){
-                  flag=false;
-                }
-              })
-              if(flag){
-                list.push(e);
-              }
-            }
-          })
-        }
+      if(approval.length==0){
+        return data;
+      }
+      var list=[]
       data.forEach(function(e){
-        var i=approval.indexOf(e.approvalStatus);
-        if(i!=-1){
-          if(!e.approvalStatus){
-            e.approvals.forEach(function(a){
-              if(a.by=='dsw'){
-                list.push(e);
-              }
-            })
-          }else{
-            list.push(e);
-          }
+        if(approval.indexOf(e.approvalStatus)!=-1){
+          list.push(e);
         }
       })
       return list;

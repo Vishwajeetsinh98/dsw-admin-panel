@@ -97,7 +97,7 @@ router.post('/addevent', function(req, res, next){
     proRequest: req.body.proRequest,
     other: req.body.other,
     approvals: [],
-    fcApproval: false,
+    fcApproval: 'pending',
     approvalStatus: 'pending'
   });
   //Populate The Chapter Field

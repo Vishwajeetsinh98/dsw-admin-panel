@@ -263,21 +263,37 @@
               </div>
 
 
-              <div class="form-group" ng-class="{'has-success': !eventForm.guest.$invalid && eventForm.guest.$dirty, 'has-error': (eventForm.guest.$invalid) && eventForm.guest.$dirty}">
-                Guest Details (If Applicable)
-                <input type="text" class="form-control" ng-model="guest" name="guest" placeholder="Guest Details">
+              Guest Details
+              <div class="radio">
+                <label><input type="radio" name="guestOption" ng-click="guestDetails=''" value="yes" ng-model="guestOption">Yes</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="guestOption" ng-click="guestDetails='No Guest Details'" value="no" ng-model="guestOption" ng-init="guestOption='no'">No</label>
+              </div>
+              <div class="form-group" ng-show="guestOption=='yes'" ng-class="{'has-success': !eventForm.guestDetails.$invalid && eventForm.guestDetails.$dirty, 'has-error': (eventForm.guestDetails.$invalid || (guestOption=='yes' && guestDetails=='')) && eventForm.guestDetails.$dirty}">
+                <input type="text" class="form-control" ng-init="guestDetails='No Guest Details'" ng-model="guestDetails" name="guestDetails" placeholder="Guest Details">
               </div>
 
-
-              <div class="form-group" ng-class="{'has-success': !eventForm.budget.$invalid && eventForm.budget.$dirty, 'has-error': (eventForm.budget.$invalid ) && eventForm.budget.$dirty}">
-                Budget (If Applicable)
-                <input type="text" class="form-control" ng-model="budget" name="budget" placeholder="Budget">
+              Budget
+              <div class="radio">
+                <label><input type="radio" name="budgetOption" ng-click="budget=''" value="yes" ng-model="budgetOption">Yes</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="budgetOption" ng-click="budget='No Budget Details'" value="no" ng-model="budgetOption" ng-init="budgetOption='no'">No</label>
+              </div>
+              <div class="form-group" ng-show="budgetOption=='yes'" ng-class="{'has-success': !eventForm.budget.$invalid && eventForm.budget.$dirty, 'has-error': (eventForm.budget.$invalid || (budgetOption=='yes' && budget=='')) && eventForm.budget.$dirty}">
+                <input type="text" class="form-control" ng-init="budget='No Budget Details'" ng-model="budget" name="budget" placeholder="Budget">
               </div>
 
-
-              <div class="form-group" ng-class="{'has-success': !eventForm.sponsors.$invalid && eventForm.sponsors.$dirty, 'has-error': (eventForm.sponsors.$invalid) && eventForm.sponsors.$dirty}">
-                Sponsors (If Applicable)
-                <input type="text"class="form-control" ng-model="sponsors" name="sponsors" placeholder="Sponsors">
+                Sponsors
+              <div class="radio">
+                <label><input type="radio" name="sponsorOption" ng-click="sponsors=''" value="yes" ng-model="sponsorOption">Yes</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="sponsorOption" ng-click="sponsors='No Sponsor Details'" value="no" ng-model="sponsorOption" ng-init="sponsorOption='no'">No</label>
+              </div>
+              <div class="form-group" ng-show="sponsorOption=='yes'" ng-class="{'has-success': !eventForm.sponsors.$invalid && eventForm.sponsors.$dirty, 'has-error': (eventForm.sponsors.$invalid || (sponsorOption=='yes' && sponsors=='')) && eventForm.sponsors.$dirty}">
+                <input type="text"class="form-control" ng-model="sponsors" name="sponsors" ng-init="sponsors='No Sponsor Details'" placeholder="Sponsors">
               </div>
             </div>
           </div>

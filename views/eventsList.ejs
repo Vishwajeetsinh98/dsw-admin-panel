@@ -20,10 +20,13 @@
 <body ng-app="app" ng-controller="listController">
 <div class="container-fluid" ng-init="getEvents()">
     <div class="row">
+      <div class="col-sm-8 col-sm-push-2 col-xs-12">
         <h1 align="center">Admin Panel</h1>
         <h4 align="center">List of Events</h4>
         <h4 class="logout"><a href="/logout">Logout</a></h4>
-        <br><hr><br>
+        <br><br>
+        <hr>
+      </div>
         <div class="container-fluid">
         <div class="row">
             <div class="col-sm-8 col-xs-10 col-xs-push-1 col-sm-push-2">
@@ -52,18 +55,20 @@
                           <td><a ng-href="/events/{{event._id}}">{{event.eventName}}</a></td>
                           <td>{{event.clubOrChapter}}</td>
                           <td>{{formatDate(event.startDate)}}</td>
-                          <td>Reviewed By:
+                          <td>
+                              Reviewed By:
+                              <span ng-if="event.approvals.length==0"><br>--none--</span>
                               <ul ng-repeat="user in event.approvals">
                                   <li ng-if="user.approved">
                                       {{user.by}}
                                   </li>
                               </ul>
                           </td>
-                          <td ng-class="{'pass':event.fcApproval, 'reject':(!event.fcApproval && !checkPending(event.approvals, 'fc')), 'pending': (!event.fcApproval && checkPending(event.approvals, 'fc'))}">
-                              <span ng-if="event.fcApproval">Approved</span><div ng-if="!event.fcApproval"><span ng-if="checkPending(event.approvals, 'fc')">Pending</span><span ng-if="!checkPending(event.approvals, 'fc')">Reject</span></div>
+                          <td ng-class="{'pass':event.fcApproval=='approved', 'reject':event.fcApproval=='rejected', 'pending':event.fcApproval=='pending'}">
+                              <span ng-if="event.fcApproval=='approved'">Approved</span><span ng-if="event.fcApproval=='pending'">Pending</span><span ng-if="event.fcApproval=='rejected'">Rejected</span>
                           </td>
                           <td ng-class="{'pass':event.approvalStatus=='approved', 'reject':event.approvalStatus=='rejected', 'pending': event.approvalStatus=='pending'}">
-                              <span ng-if="event.approvalStatus=='approved'">Approved</span><span ng-if="event.approvalStatus=='pending'">Pending</span><span ng-if="event.approvalStatus=='rejected'">Reject</span>
+                              <span ng-if="event.approvalStatus=='approved'">Approved</span><span ng-if="event.approvalStatus=='pending'">Pending</span><span ng-if="event.approvalStatus=='rejected'">Rejected</span>
                           </td>
                           </tr>
                       </tbody>
