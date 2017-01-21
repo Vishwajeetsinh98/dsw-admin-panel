@@ -8,7 +8,7 @@ router.use(util.checkUserType(['fc']));
 
 router.post('/approve', function(req, res, next){
     var eventApproval = req.body.accept === 'true' ? 'approved' : 'rejected';
-    var query = {fcApproval: req.body.accept, $push: {approvals: {by: "fc", approved: eventApproval, when: new Date()}}};
+    var query = {fcApproval: eventApproval, $push: {approvals: {by: "fc", approved: eventApproval, when: new Date()}}};
     Event.findByIdAndUpdate(req.body.eventId, query, function(err, event){
         if(err){
             console.log(err);
